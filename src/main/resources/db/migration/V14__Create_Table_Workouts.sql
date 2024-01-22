@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `workouts` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `duration` TINYINT NOT NULL,
   `difficulty` TINYINT NOT NULL,

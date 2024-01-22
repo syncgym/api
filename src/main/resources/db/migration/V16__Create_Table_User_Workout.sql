@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS `user_workout` (
   `id_workout` bigint NOT NULL,
   `id_user` bigint NOT NULL,
+  `completed_sessions` TINYINT NOT NULL DEFAULT 0,
+  `is_active` BIT NOT NULL DEFAULT 1,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_workout`,`id_user`),
