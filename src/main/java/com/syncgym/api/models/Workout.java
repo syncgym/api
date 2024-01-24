@@ -25,7 +25,7 @@ public class Workout implements Serializable {
     @Column(nullable = false)
     private byte difficulty;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "exercise_workout",
             joinColumns = {@JoinColumn(name = "id_workout")}, inverseJoinColumns = {@JoinColumn(name = "id_exercise")}

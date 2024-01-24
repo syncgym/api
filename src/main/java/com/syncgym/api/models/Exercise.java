@@ -29,7 +29,7 @@ public class Exercise implements Serializable {
     @Column(nullable = false)
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "exercise_muscle_group",
             joinColumns = {@JoinColumn(name = "id_exercise")}, inverseJoinColumns = {@JoinColumn(name = "id_muscle_group")}

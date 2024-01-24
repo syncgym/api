@@ -1,17 +1,24 @@
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY:gf54h1f4gh}
+      expire-length: 3600000
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_JDBC:jdbc:mysql://localhost:9090/desenvolvimento}
-    username: ${MYSQL_USERNAME:dev}
-    password: ${MYSQL_PASSWORD:dev123}
+    url: ${MYSQL_JDBC:jdbc:mysql://localhost:3308/syncgym}
+    username: ${MYSQL_USERNAME:docker}
+    password: ${MYSQL_PASSWORD:a8s45d18}
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: none
     show-sql: false
 spring-doc:
-  pathsToMatch: "/api/**"
+  pathsToMatch:
+    - /api/**
+    - /auth/**
   swagger-ui:
     use-root-path: true
