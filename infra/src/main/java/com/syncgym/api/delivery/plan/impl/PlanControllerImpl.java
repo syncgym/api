@@ -12,10 +12,9 @@ import com.syncgym.api.shared.exceptions.SyncgymException;
 import com.syncgym.api.shared.responses.SyncgymResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,22 +36,26 @@ public class PlanControllerImpl implements PlanController {
 
     @Override
     @GetMapping
-
-    public SyncgymResponse<Collection<PlanReq>> getPlans() throws SyncgymException {
-        return new SyncgymResponse<>(CommonConstants.SUCCESS, HttpStatus.OK.value(), CommonConstants.OK,
+    public ResponseEntity<SyncgymResponse<?>> getPlans() {
+        var res = new SyncgymResponse<>(CommonConstants.OK, CommonConstants.OK_STATUS, CommonConstants.SUCCESS_MESSAGE,
                 getAllPlansUseCase.execute().stream().map(planReqMapper::mapToReq)
                         .collect(Collectors.toList()));
+
+        return ResponseEntity.ok(res);
     }
 
     @Override
     @PostMapping
-    public SyncgymResponse<PlanReq> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<?>> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
         try {
             createPlanUseCase.execute(planReqMapper.mapToEntity(plan));
         } catch (PlanAlreadyExistException e) {
             throw new BadRequestException("Plan already exists");
         }
 
-        return new SyncgymResponse<>(CommonConstants.SUCCESS, HttpStatus.OK.value(), CommonConstants.OK, plan);
+        var res = new SyncgymResponse<>(CommonConstants.CREATED, CommonConstants.CREATED_STATUS, CommonConstants.SUCCESS_MESSAGE, plan);
+
+
+        return ResponseEntity.status(CommonConstants.CREATED_STATUS).body(res);
     }
 }

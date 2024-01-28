@@ -15,7 +15,7 @@ public class CreatePlanUseCaseImpl implements CreatePlanUseCase {
     @Override
     public void execute(Plan plan) throws PlanAlreadyExistException {
 
-        if (planRepositoryService.doesPlanNameExists(plan.getName())) {
+        if (planRepositoryService.doesPlanNameExists(plan.name())) {
             throw new PlanAlreadyExistException();
         }
 
