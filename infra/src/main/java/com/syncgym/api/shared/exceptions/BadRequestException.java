@@ -1,6 +1,7 @@
 package com.syncgym.api.shared.exceptions;
 
-import org.springframework.http.HttpStatus;
+import com.syncgym.api.shared.constants.CommonConstants;
+import com.syncgym.api.shared.responses.SyncgymResponse;
 
 import java.io.Serial;
 
@@ -10,6 +11,6 @@ public class BadRequestException extends SyncgymException {
     private static final long serialVersionUID = 1L;
 
     public BadRequestException(final String message) {
-        super(HttpStatus.BAD_REQUEST.value(), message);
+        super(new SyncgymResponse<>(CommonConstants.BAD_REQUEST, CommonConstants.BAD_REQUEST_STATUS, message));
     }
 }
