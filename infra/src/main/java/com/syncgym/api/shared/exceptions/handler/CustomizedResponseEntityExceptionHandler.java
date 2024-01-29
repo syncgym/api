@@ -1,8 +1,7 @@
 package com.syncgym.api.shared.exceptions.handler;
 
 import com.syncgym.api.shared.constants.CommonConstants;
-import com.syncgym.api.shared.exceptions.BadRequestException;
-import com.syncgym.api.shared.exceptions.SyncgymException;
+import com.syncgym.api.shared.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,5 +32,32 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public final ResponseEntity<ExceptionResponse> forbiddenException(SyncgymException ex, WebRequest req) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+        );
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InternalErrorException.class)
+    public final ResponseEntity<ExceptionResponse> internalErrorException(SyncgymException ex, WebRequest req) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+        );
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> notFoundException(SyncgymException ex, WebRequest req) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+        );
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }

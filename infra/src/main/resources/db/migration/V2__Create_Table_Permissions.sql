@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(255) UNIQUE,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

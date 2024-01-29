@@ -19,6 +19,9 @@ public class CommonConstants {
     public static final String NOT_FOUND = HttpStatus.NOT_FOUND.name();
     public static final int NOT_FOUND_STATUS = HttpStatus.NOT_FOUND.value();
 
+    public static final String FORBIDDEN = HttpStatus.FORBIDDEN.name();
+    public static final int FORBIDDEN_STATUS = HttpStatus.FORBIDDEN.value();
+
     public static final String SUCCESS_MESSAGE = "Success";
 
     public static final String UTF_8 = "UTF-8";
