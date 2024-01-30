@@ -3,6 +3,8 @@ package com.syncgym.api.delivery.plan.impl;
 import com.syncgym.api.delivery.plan.PlanController;
 import com.syncgym.api.delivery.plan.mappers.PlanReqMapper;
 import com.syncgym.api.delivery.plan.requests.PlanReq;
+import com.syncgym.api.delivery.plan.responses.CreatePlanResponse;
+import com.syncgym.api.delivery.plan.responses.GetPlansResponse;
 import com.syncgym.api.plan.Plan;
 import com.syncgym.api.plan.exceptions.PlanAlreadyExistException;
 import com.syncgym.api.plan.usecases.createPlanUseCase.CreatePlanUseCase;
@@ -10,7 +12,12 @@ import com.syncgym.api.plan.usecases.getAllPlansUseCase.GetAllPlansUseCase;
 import com.syncgym.api.shared.constants.CommonConstants;
 import com.syncgym.api.shared.exceptions.BadRequestException;
 import com.syncgym.api.shared.exceptions.SyncgymException;
+import com.syncgym.api.shared.exceptions.handler.ExceptionResponse;
 import com.syncgym.api.shared.responses.SyncgymResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +44,21 @@ public class PlanControllerImpl implements PlanController {
     }
 
     @Override
+    @Operation(summary = "Find all", description = "Find all plans",
+            tags = {"Plan"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = GetPlansResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
     @GetMapping
     public ResponseEntity<SyncgymResponse<List<String>>> getPlans() {
         var res = new SyncgymResponse<>(CommonConstants.OK, CommonConstants.OK_STATUS, CommonConstants.SUCCESS_MESSAGE,
@@ -47,6 +69,23 @@ public class PlanControllerImpl implements PlanController {
     }
 
     @Override
+    @Operation(summary = "Create", description = "Create plan",
+            tags = {"Plan"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = CreatePlanResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Not Found",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
     @PostMapping
     public ResponseEntity<SyncgymResponse<PlanReq>> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
         try {
