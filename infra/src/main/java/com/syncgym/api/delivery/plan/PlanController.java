@@ -5,9 +5,11 @@ import com.syncgym.api.shared.exceptions.SyncgymException;
 import com.syncgym.api.shared.responses.SyncgymResponse;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface PlanController {
 
-    ResponseEntity<SyncgymResponse<?>> getPlans() throws SyncgymException;
+    ResponseEntity<SyncgymResponse<List<String>>> getPlans() throws SyncgymException;
 
-    ResponseEntity<SyncgymResponse<?>> createPlan(PlanReq planReq) throws SyncgymException;
+    ResponseEntity<SyncgymResponse<PlanReq>> createPlan(PlanReq planReq) throws SyncgymException;
 }

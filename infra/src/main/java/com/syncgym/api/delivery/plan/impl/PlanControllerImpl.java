@@ -3,6 +3,7 @@ package com.syncgym.api.delivery.plan.impl;
 import com.syncgym.api.delivery.plan.PlanController;
 import com.syncgym.api.delivery.plan.mappers.PlanReqMapper;
 import com.syncgym.api.delivery.plan.requests.PlanReq;
+import com.syncgym.api.plan.Plan;
 import com.syncgym.api.plan.exceptions.PlanAlreadyExistException;
 import com.syncgym.api.plan.usecases.createPlanUseCase.CreatePlanUseCase;
 import com.syncgym.api.plan.usecases.getAllPlansUseCase.GetAllPlansUseCase;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,9 +38,9 @@ public class PlanControllerImpl implements PlanController {
 
     @Override
     @GetMapping
-    public ResponseEntity<SyncgymResponse<?>> getPlans() {
+    public ResponseEntity<SyncgymResponse<List<String>>> getPlans() {
         var res = new SyncgymResponse<>(CommonConstants.OK, CommonConstants.OK_STATUS, CommonConstants.SUCCESS_MESSAGE,
-                getAllPlansUseCase.execute().stream().map(planReqMapper::mapToReq)
+                getAllPlansUseCase.execute().stream().map(Plan::name)
                         .collect(Collectors.toList()));
 
         return ResponseEntity.ok(res);
@@ -46,7 +48,7 @@ public class PlanControllerImpl implements PlanController {
 
     @Override
     @PostMapping
-    public ResponseEntity<SyncgymResponse<?>> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<PlanReq>> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
         try {
             createPlanUseCase.execute(planReqMapper.mapToEntity(plan));
         } catch (PlanAlreadyExistException e) {

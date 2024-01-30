@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public interface ReqMapper<R extends Serializable, E extends Serializable> {
 
-    default E mapToEntity(final R rest) {
+    default E mapToEntity(final R req) {
         throw new UnsupportedOperationException();
     }
 
