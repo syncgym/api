@@ -1,0 +1,19 @@
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_JDBC:jdbc:mysql://localhost:3308/syncgym}
+    username: ${MYSQL_USERNAME:docker}
+    password: ${MYSQL_PASSWORD:a8s45d18}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+spring-doc:
+  pathsToMatch:
+    - /api/**
+    - /auth/**
+  swagger-ui:
+    use-root-path: true
