@@ -12,7 +12,7 @@ public class SyncgymException extends Exception {
     private final SyncgymResponse<?> response;
 
     public SyncgymException(SyncgymResponse<?> response) {
-        super(response.message());
+        super(response.getMessage());
         this.response = response;
     }
 

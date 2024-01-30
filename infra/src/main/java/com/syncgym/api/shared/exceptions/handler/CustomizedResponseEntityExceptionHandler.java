@@ -28,7 +28,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(BadRequestException.class)
     public final ResponseEntity<ExceptionResponse> badRequestException(SyncgymException ex, WebRequest req) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+                ex.getResponse().getStatus(), ex.getResponse().getCode(), ex.getMessage(), req.getDescription(false)
         );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
@@ -37,7 +37,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(ForbiddenException.class)
     public final ResponseEntity<ExceptionResponse> forbiddenException(SyncgymException ex, WebRequest req) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+                ex.getResponse().getStatus(), ex.getResponse().getCode(), ex.getMessage(), req.getDescription(false)
         );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
@@ -46,7 +46,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(InternalErrorException.class)
     public final ResponseEntity<ExceptionResponse> internalErrorException(SyncgymException ex, WebRequest req) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+                ex.getResponse().getStatus(), ex.getResponse().getCode(), ex.getMessage(), req.getDescription(false)
         );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,7 +55,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     @ExceptionHandler(NotFoundException.class)
     public final ResponseEntity<ExceptionResponse> notFoundException(SyncgymException ex, WebRequest req) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getResponse().status(), ex.getResponse().code(), ex.getMessage(), req.getDescription(false)
+                ex.getResponse().getStatus(), ex.getResponse().getCode(), ex.getMessage(), req.getDescription(false)
         );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
