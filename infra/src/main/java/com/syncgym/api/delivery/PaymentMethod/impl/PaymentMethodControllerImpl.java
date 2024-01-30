@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/payment-method")
-@Tag(name = "Payment Method", description = "Endpoint for payment methods management.")
+@Tag(name = "Payment Method", description = "Endpoint for payment methods management")
 public class PaymentMethodControllerImpl implements PaymentMethodController {
 
     private final GetAllPaymentMethodsUseCase getAllPaymentMethodsUseCase;
@@ -44,7 +44,6 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
     }
 
     @Override
-    @GetMapping
     @Operation(summary = "Find all", description = "Find all payment methods",
             tags = {"Payment Method"},
             responses = {
@@ -60,6 +59,7 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             }
     )
+    @GetMapping
     public ResponseEntity<SyncgymResponse<List<String>>> getPaymentMethods() throws SyncgymException {
         var res = new SyncgymResponse<>(CommonConstants.OK, CommonConstants.OK_STATUS, CommonConstants.SUCCESS_MESSAGE,
                 getAllPaymentMethodsUseCase.execute().stream().map(PaymentMethod::name)
@@ -75,11 +75,16 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
                             content = @Content(schema = @Schema(implementation = CreatePaymentMethodResponse.class))),
-                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
-                    @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
-                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
-                    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Not Found",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             }
     )
     public ResponseEntity<SyncgymResponse<PaymentMethodReq>> createPaymentMethod(@Valid @RequestBody final PaymentMethodReq paymentMethodReq) throws SyncgymException {

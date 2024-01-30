@@ -1,12 +1,21 @@
 package com.syncgym.api.security.controllers;
 
 import com.syncgym.api.security.entities.AccountCredentials;
+import com.syncgym.api.security.entities.Token;
+import com.syncgym.api.security.responses.RefreshTokenResponse;
+import com.syncgym.api.security.responses.SignInResponse;
+import com.syncgym.api.security.responses.SignUpResponse;
 import com.syncgym.api.security.services.refreshTokenService.RefreshTokenService;
 import com.syncgym.api.security.services.signInService.SignInService;
 import com.syncgym.api.security.services.signUpService.SignUpService;
 import com.syncgym.api.shared.constants.CommonConstants;
 import com.syncgym.api.shared.exceptions.SyncgymException;
+import com.syncgym.api.shared.exceptions.handler.ExceptionResponse;
 import com.syncgym.api.shared.responses.SyncgymResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +39,23 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
+    @Operation(summary = "SignIn", description = "User signing in",
+            tags = {"Auth"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = SignInResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
     @PostMapping(path = "/signIn")
-    public ResponseEntity<?> signIn(@Valid @RequestBody AccountCredentials data) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<Token>> signIn(@Valid @RequestBody AccountCredentials data) throws SyncgymException {
         var res = new SyncgymResponse<>(
                 CommonConstants.OK,
                 CommonConstants.OK_STATUS,
@@ -43,8 +67,23 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
+    @Operation(summary = "SignUp", description = "User signing up",
+            tags = {"Auth"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = SignUpResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
     @PostMapping(path = "/signUp")
-    public ResponseEntity<?> signUp(@Valid @RequestBody AccountCredentials data) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<Token>> signUp(@Valid @RequestBody AccountCredentials data) throws SyncgymException {
         var res = new SyncgymResponse<>(
                 CommonConstants.OK,
                 CommonConstants.OK_STATUS,
@@ -56,8 +95,23 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
+    @Operation(summary = "Refresh Token", description = "Refresh token for user",
+            tags = {"Auth"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = RefreshTokenResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
     @PutMapping(path = "/refreshToken/{username}")
-    public ResponseEntity<?> refreshToken(
+    public ResponseEntity<SyncgymResponse<Token>> refreshToken(
             @PathVariable("username") String username, @RequestHeader("Authorization") String refreshToken
     ) throws SyncgymException {
         var res = new SyncgymResponse<>(
