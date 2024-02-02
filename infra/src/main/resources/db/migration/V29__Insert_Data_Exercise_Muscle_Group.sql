@@ -1,4 +1,4 @@
-insert into `exercise_muscle_group` (`id_muscle_group`, `id_exercise`) values
+insert into `exercise_muscle_group` (`muscle_group_id`, `exercise_id`) values
     (1, 1), (9, 1),
     (1, 2), (9, 2),
     (1, 3), (9, 3),

@@ -1,10 +1,10 @@
 package com.syncgym.api.security.controllers;
 
-import com.syncgym.api.security.entities.AccountCredentials;
-import com.syncgym.api.security.entities.Token;
 import com.syncgym.api.security.responses.RefreshTokenResponse;
 import com.syncgym.api.security.responses.SignInResponse;
 import com.syncgym.api.security.responses.SignUpResponse;
+import com.syncgym.api.security.rest.AccountCredentials;
+import com.syncgym.api.security.rest.Token;
 import com.syncgym.api.security.services.refreshTokenService.RefreshTokenService;
 import com.syncgym.api.security.services.signInService.SignInService;
 import com.syncgym.api.security.services.signUpService.SignUpService;

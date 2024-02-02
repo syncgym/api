@@ -1,8 +1,8 @@
 package com.syncgym.api.security.services.refreshTokenService;
 
-import com.syncgym.api.security.entities.Token;
 import com.syncgym.api.security.exceptions.InvalidJwtAuthenticationException;
 import com.syncgym.api.security.jwt.JwtTokenProvider;
+import com.syncgym.api.security.rest.Token;
 import com.syncgym.api.shared.exceptions.SyncgymException;
 import org.springframework.beans.factory.annotation.Autowired;
 

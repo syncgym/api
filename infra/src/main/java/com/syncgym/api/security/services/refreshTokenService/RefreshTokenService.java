@@ -1,6 +1,6 @@
 package com.syncgym.api.security.services.refreshTokenService;
 
-import com.syncgym.api.security.entities.Token;
+import com.syncgym.api.security.rest.Token;
 import com.syncgym.api.shared.exceptions.SyncgymException;
 
 public interface RefreshTokenService {

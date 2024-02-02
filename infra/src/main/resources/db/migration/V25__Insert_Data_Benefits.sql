@@ -1,4 +1,4 @@
-insert into `benefits` (`id_plan`, `name`) values
+insert into `benefits` (`plan_id`, `name`) values
     (1, 'Kids'),
     (1, 'Toys'),
     (1, 'Grocery'),

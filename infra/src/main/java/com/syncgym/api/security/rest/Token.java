@@ -1,4 +1,4 @@
-package com.syncgym.api.security.entities;
+package com.syncgym.api.security.rest;
 
 import java.io.Serial;
 import java.io.Serializable;

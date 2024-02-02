@@ -1,4 +1,4 @@
-INSERT INTO `subscriptions` (`id_plan`, `id_user`, `start_date`, `end_date`) VALUES
+INSERT INTO `subscriptions` (`plan_id`, `user_id`, `start_date`, `end_date`) VALUES
     (1, 1, '2023-11-30 09:51:12', '2023-04-06 08:16:12'),
     (3, 2, '2023-04-07 10:35:27', '2023-04-03 22:06:02'),
     (3, 3, '2023-12-19 02:11:38', '2023-03-05 07:58:43'),

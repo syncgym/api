@@ -1,6 +1,6 @@
 package com.syncgym.api.security.responses;
 
-import com.syncgym.api.security.entities.Token;
+import com.syncgym.api.security.rest.Token;
 import com.syncgym.api.shared.responses.SyncgymResponse;
 
 public class SignInResponse extends SyncgymResponse<Token> {

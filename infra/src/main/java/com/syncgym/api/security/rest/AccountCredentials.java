@@ -1,4 +1,4 @@
-package com.syncgym.api.security.entities;
+package com.syncgym.api.security.rest;
 
 import jakarta.validation.constraints.NotNull;
 

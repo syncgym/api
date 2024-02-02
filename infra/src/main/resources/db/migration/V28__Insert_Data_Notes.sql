@@ -1,4 +1,4 @@
-insert into `notes` (`id_user`, `id_exercise`, `description`, `date`) values
+insert into `notes` (`user_id`, `exercise_id`, `description`, `date`) values
   (5, 29, 'Clos pharynx fistula NEC', '2024-02-05 05:30:39'),
   (1, 32, 'Arth/pros rem wo rep-ank', '2024-02-05 06:47:48'),
   (20, 28, 'Vaginal const w grf/pros', '2024-02-22 09:04:33'),
