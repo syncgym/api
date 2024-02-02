@@ -1,4 +1,4 @@
-INSERT INTO `payments` (`id_subscription`, `value`, `date`, `invoice`, `id_payment_method`) VALUES
+INSERT INTO `payments` (`id`, `value`, `date`, `invoice`, `id_payment_method`) VALUES
     (1, 500, '2023-12-01', 'INV-2023-12-01-001', 1),
     (2, 750, '2023-04-10', 'INV-2023-04-10-002', 2),
     (3, 1200, '2023-03-10', 'INV-2023-03-10-003', 3),
