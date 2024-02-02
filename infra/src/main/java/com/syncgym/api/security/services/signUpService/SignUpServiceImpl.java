@@ -11,34 +11,28 @@ import com.syncgym.api.shared.exceptions.BadRequestException;
 import com.syncgym.api.shared.exceptions.SyncgymException;
 import com.syncgym.api.user.exceptions.UsernameAlreadyExists;
 import com.syncgym.api.user.usecases.createUser.CreateUserUseCase;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class SignUpServiceImpl implements SignUpService {
 
-    private final CreateUserUseCase createUserUseCase;
+    @Autowired
+    private CreateUserUseCase createUserUseCase;
 
-    private final SignInService signInService;
+    @Autowired
+    private SignInService signInService;
 
-    private final PasswordEncoder passwordEncoder;
-
-    private final GetPermissionByDescriptionUseCase getPermission;
-
-    public SignUpServiceImpl(CreateUserUseCase createUserUseCase, SignInService signInService, PasswordEncoder passwordEncoder, GetPermissionByDescriptionUseCase getPermission) {
-        this.createUserUseCase = createUserUseCase;
-        this.signInService = signInService;
-        this.passwordEncoder = passwordEncoder;
-        this.getPermission = getPermission;
-    }
+    @Autowired
+    private GetPermissionByDescriptionUseCase getPermission;
 
     @Override
     public Token execute(AccountCredentials accountCredentials) throws SyncgymException {
         try {
             createUserUseCase.execute(
                     accountCredentials.username(),
-                    passwordEncoder.encode(accountCredentials.password()),
-                    List.of(getPermission.execute(Permissions.COMMON_USER.name()))
+                    accountCredentials.password(),
+                    List.of(getPermission.execute(Permissions.ADMIN.name()))
             );
 
             return signInService.execute(accountCredentials);

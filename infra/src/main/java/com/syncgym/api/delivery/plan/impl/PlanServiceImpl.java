@@ -4,20 +4,18 @@ import com.syncgym.api.delivery.plan.mappers.PlanRepositoryMapper;
 import com.syncgym.api.delivery.plan.repositories.PlanRepository;
 import com.syncgym.api.plan.Plan;
 import com.syncgym.api.plan.ports.PlanRepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class PlanServiceImpl implements PlanRepositoryService {
 
-    private final PlanRepository planRepository;
+    @Autowired
+    private PlanRepository planRepository;
 
-    private final PlanRepositoryMapper planRepositoryMapper;
-
-    public PlanServiceImpl(PlanRepository planRepository, PlanRepositoryMapper planRepositoryMapper) {
-        this.planRepository = planRepository;
-        this.planRepositoryMapper = planRepositoryMapper;
-    }
+    @Autowired
+    private PlanRepositoryMapper planRepositoryMapper;
 
     @Override
     public Collection<Plan> getAllPlans() {

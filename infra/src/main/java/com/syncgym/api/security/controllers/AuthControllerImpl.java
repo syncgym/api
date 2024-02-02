@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,20 +27,17 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Auth", description = "Endpoint for Auth")
 public class AuthControllerImpl implements AuthController {
 
-    private final SignInService signInService;
+    @Autowired
+    private SignInService signInService;
 
-    private final SignUpService signUpService;
+    @Autowired
+    private SignUpService signUpService;
 
-    private final RefreshTokenService refreshTokenService;
-
-    public AuthControllerImpl(SignInService signInService, SignUpService signUpService, RefreshTokenService refreshTokenService) {
-        this.signInService = signInService;
-        this.signUpService = signUpService;
-        this.refreshTokenService = refreshTokenService;
-    }
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     @Override
-    @Operation(summary = "SignIn", description = "User signing in",
+    @Operation(summary = "SignIn", description = "All users can sign in to the system using this endpoint",
             tags = {"Auth"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
@@ -67,7 +65,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    @Operation(summary = "SignUp", description = "User signing up",
+    @Operation(summary = "SignUp", description = "Only admin can sign up a user",
             tags = {"Auth"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
@@ -95,7 +93,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    @Operation(summary = "Refresh Token", description = "Refresh token for user",
+    @Operation(summary = "Refresh Token", description = "Refresh token for all users",
             tags = {"Auth"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",

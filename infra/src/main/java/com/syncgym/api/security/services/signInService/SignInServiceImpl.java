@@ -17,14 +17,11 @@ public class SignInServiceImpl implements SignInService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    private final JwtTokenProvider tokenProvider;
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
-    private final UserRepository repository;
-
-    public SignInServiceImpl(JwtTokenProvider tokenProvider, UserRepository repository) {
-        this.tokenProvider = tokenProvider;
-        this.repository = repository;
-    }
+    @Autowired
+    private UserRepository repository;
 
     @Override
     public Token execute(AccountCredentials data) throws SyncgymException {

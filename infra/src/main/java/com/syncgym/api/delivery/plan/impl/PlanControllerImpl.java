@@ -1,10 +1,10 @@
 package com.syncgym.api.delivery.plan.impl;
 
 import com.syncgym.api.delivery.plan.PlanController;
-import com.syncgym.api.delivery.plan.mappers.PlanReqMapper;
-import com.syncgym.api.delivery.plan.requests.PlanReq;
+import com.syncgym.api.delivery.plan.mappers.PlanRestMapper;
 import com.syncgym.api.delivery.plan.responses.CreatePlanResponse;
 import com.syncgym.api.delivery.plan.responses.GetPlansResponse;
+import com.syncgym.api.delivery.plan.rest.PlanRest;
 import com.syncgym.api.plan.Plan;
 import com.syncgym.api.plan.exceptions.PlanAlreadyExistException;
 import com.syncgym.api.plan.usecases.createPlanUseCase.CreatePlanUseCase;
@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +32,14 @@ import java.util.stream.Collectors;
 @Tag(name = "Plan", description = "Endpoint for plan management")
 public class PlanControllerImpl implements PlanController {
 
-    private final GetAllPlansUseCase getAllPlansUseCase;
+    @Autowired
+    private GetAllPlansUseCase getAllPlansUseCase;
 
-    private final CreatePlanUseCase createPlanUseCase;
+    @Autowired
+    private CreatePlanUseCase createPlanUseCase;
 
-    private final PlanReqMapper planReqMapper;
-
-    public PlanControllerImpl(GetAllPlansUseCase getAllPlansUseCase, CreatePlanUseCase createPlanUseCase, PlanReqMapper planReqMapper) {
-        this.getAllPlansUseCase = getAllPlansUseCase;
-        this.createPlanUseCase = createPlanUseCase;
-        this.planReqMapper = planReqMapper;
-    }
+    @Autowired
+    private PlanRestMapper planReqMapper;
 
     @Override
     @Operation(summary = "Find all", description = "Find all plans",
@@ -87,7 +85,7 @@ public class PlanControllerImpl implements PlanController {
             }
     )
     @PostMapping
-    public ResponseEntity<SyncgymResponse<PlanReq>> createPlan(@Valid @RequestBody final PlanReq plan) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<PlanRest>> createPlan(@Valid @RequestBody final PlanRest plan) throws SyncgymException {
         try {
             createPlanUseCase.execute(planReqMapper.mapToEntity(plan));
         } catch (PlanAlreadyExistException e) {

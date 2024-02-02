@@ -4,20 +4,18 @@ import com.syncgym.api.delivery.permission.mappers.PermissionRepositoryMapper;
 import com.syncgym.api.delivery.permission.repositories.PermissionRepository;
 import com.syncgym.api.permission.Permission;
 import com.syncgym.api.permission.ports.PermissionRepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 public class PermissionServiceImpl implements PermissionRepositoryService {
 
-    private final PermissionRepository permissionRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
-    private final PermissionRepositoryMapper permissionRepositoryMapper;
-
-    public PermissionServiceImpl(PermissionRepository permissionRepository, PermissionRepositoryMapper permissionRepositoryMapper) {
-        this.permissionRepository = permissionRepository;
-        this.permissionRepositoryMapper = permissionRepositoryMapper;
-    }
+    @Autowired
+    private PermissionRepositoryMapper permissionRepositoryMapper;
 
     @Override
     public Optional<List<Permission>> getAllPermissions() {

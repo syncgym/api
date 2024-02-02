@@ -4,13 +4,12 @@ import com.syncgym.api.delivery.permission.mappers.PermissionRepositoryMapper;
 import com.syncgym.api.delivery.user.entities.UserEntity;
 import com.syncgym.api.shared.RepositoryMapper;
 import com.syncgym.api.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserRepositoryMapper implements RepositoryMapper<UserEntity, User> {
-    private final PermissionRepositoryMapper permissionRepositoryMapper;
 
-    public UserRepositoryMapper(PermissionRepositoryMapper permissionRepositoryMapper) {
-        this.permissionRepositoryMapper = permissionRepositoryMapper;
-    }
+    @Autowired
+    private PermissionRepositoryMapper permissionRepositoryMapper;
 
     @Override
     public UserEntity mapToTable(final User user) {

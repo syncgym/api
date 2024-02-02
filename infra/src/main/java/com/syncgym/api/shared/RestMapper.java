@@ -2,13 +2,13 @@ package com.syncgym.api.shared;
 
 import java.io.Serializable;
 
-public interface ReqMapper<R extends Serializable, E extends Serializable> {
+public interface RestMapper<R extends Serializable, E extends Serializable> {
 
-    default E mapToEntity(final R req) {
+    default E mapToEntity(final R rest) {
         throw new UnsupportedOperationException();
     }
 
-    default R mapToReq(final E entity) {
+    default R mapToRest(final E entity) {
         throw new UnsupportedOperationException();
     }
 }

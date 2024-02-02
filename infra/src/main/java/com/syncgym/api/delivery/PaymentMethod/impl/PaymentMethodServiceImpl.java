@@ -4,20 +4,18 @@ import com.syncgym.api.delivery.PaymentMethod.mappers.PaymentMethodRepositoryMap
 import com.syncgym.api.delivery.PaymentMethod.repositories.PaymentMethodRepository;
 import com.syncgym.api.paymentMethod.PaymentMethod;
 import com.syncgym.api.paymentMethod.ports.PaymentMethodRepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class PaymentMethodServiceImpl implements PaymentMethodRepositoryService {
 
-    private final PaymentMethodRepository paymentMethodRepository;
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
 
-    private final PaymentMethodRepositoryMapper paymentMethodRepositoryMapper;
-
-    public PaymentMethodServiceImpl(PaymentMethodRepository paymentMethodRepository, PaymentMethodRepositoryMapper paymentMethodRepositoryMapper) {
-        this.paymentMethodRepository = paymentMethodRepository;
-        this.paymentMethodRepositoryMapper = paymentMethodRepositoryMapper;
-    }
+    @Autowired
+    private PaymentMethodRepositoryMapper paymentMethodRepositoryMapper;
 
     @Override
     public Collection<PaymentMethod> getAllPaymentMethods() {

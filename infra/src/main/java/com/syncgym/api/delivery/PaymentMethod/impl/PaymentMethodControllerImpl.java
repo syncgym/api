@@ -1,10 +1,10 @@
 package com.syncgym.api.delivery.PaymentMethod.impl;
 
 import com.syncgym.api.delivery.PaymentMethod.PaymentMethodController;
-import com.syncgym.api.delivery.PaymentMethod.mappers.PaymentMethodReqMapper;
-import com.syncgym.api.delivery.PaymentMethod.requests.PaymentMethodReq;
+import com.syncgym.api.delivery.PaymentMethod.mappers.PaymentMethodRestMapper;
 import com.syncgym.api.delivery.PaymentMethod.responses.CreatePaymentMethodResponse;
 import com.syncgym.api.delivery.PaymentMethod.responses.GetPaymentMethodsResponse;
+import com.syncgym.api.delivery.PaymentMethod.rest.PaymentMethodRest;
 import com.syncgym.api.paymentMethod.PaymentMethod;
 import com.syncgym.api.paymentMethod.exceptions.CreatePaymentMethodException;
 import com.syncgym.api.paymentMethod.usecases.createPaymentMethodUseCase.CreatePaymentMethodUseCase;
@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +32,14 @@ import java.util.stream.Collectors;
 @Tag(name = "Payment Method", description = "Endpoint for payment methods management")
 public class PaymentMethodControllerImpl implements PaymentMethodController {
 
-    private final GetAllPaymentMethodsUseCase getAllPaymentMethodsUseCase;
+    @Autowired
+    private GetAllPaymentMethodsUseCase getAllPaymentMethodsUseCase;
 
-    private final CreatePaymentMethodUseCase createPaymentMethodUseCase;
+    @Autowired
+    private CreatePaymentMethodUseCase createPaymentMethodUseCase;
 
-    private final PaymentMethodReqMapper paymentMethodReqMapper;
-
-    public PaymentMethodControllerImpl(GetAllPaymentMethodsUseCase getAllPaymentMethodsUseCase, CreatePaymentMethodUseCase createPaymentMethodUseCase, PaymentMethodReqMapper paymentMethodReqMapper) {
-        this.getAllPaymentMethodsUseCase = getAllPaymentMethodsUseCase;
-        this.createPaymentMethodUseCase = createPaymentMethodUseCase;
-        this.paymentMethodReqMapper = paymentMethodReqMapper;
-    }
+    @Autowired
+    private PaymentMethodRestMapper paymentMethodReqMapper;
 
     @Override
     @Operation(summary = "Find all", description = "Find all payment methods",
@@ -87,7 +85,7 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             }
     )
-    public ResponseEntity<SyncgymResponse<PaymentMethodReq>> createPaymentMethod(@Valid @RequestBody final PaymentMethodReq paymentMethodReq) throws SyncgymException {
+    public ResponseEntity<SyncgymResponse<PaymentMethodRest>> createPaymentMethod(@Valid @RequestBody final PaymentMethodRest paymentMethodReq) throws SyncgymException {
         try {
             createPaymentMethodUseCase.execute(paymentMethodReqMapper.mapToEntity(paymentMethodReq));
         } catch (CreatePaymentMethodException e) {

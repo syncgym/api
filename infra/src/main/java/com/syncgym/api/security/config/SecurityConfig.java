@@ -1,14 +1,10 @@
 package com.syncgym.api.security.config;
 
-import com.syncgym.api.delivery.user.repositories.UserRepository;
-import com.syncgym.api.permission.getPermissionByDescriptionUseCase.GetPermissionByDescriptionUseCase;
 import com.syncgym.api.security.jwt.JwtTokenFilter;
 import com.syncgym.api.security.jwt.JwtTokenProvider;
 import com.syncgym.api.security.services.refreshTokenService.RefreshTokenServiceImpl;
 import com.syncgym.api.security.services.signInService.SignInServiceImpl;
 import com.syncgym.api.security.services.signUpService.SignUpServiceImpl;
-import com.syncgym.api.user.usecases.createUser.CreateUserUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,15 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CreateUserUseCase createUserUseCase;
-
-    @Autowired
-    private GetPermissionByDescriptionUseCase getPermissionByDescriptionUseCase;
-
     @Bean
     public JwtTokenProvider jwtTokenProvider() {
         return new JwtTokenProvider();
@@ -47,12 +34,12 @@ public class SecurityConfig {
 
     @Bean
     public SignInServiceImpl signInService() {
-        return new SignInServiceImpl(jwtTokenProvider(), userRepository);
+        return new SignInServiceImpl();
     }
 
     @Bean
     public SignUpServiceImpl signUpService() {
-        return new SignUpServiceImpl(createUserUseCase, signInService(), passwordEncoder(), getPermissionByDescriptionUseCase);
+        return new SignUpServiceImpl();
     }
 
     @Bean
