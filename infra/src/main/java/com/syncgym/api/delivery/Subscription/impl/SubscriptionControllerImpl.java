@@ -1,13 +1,15 @@
 package com.syncgym.api.delivery.Subscription.impl;
 
+import com.syncgym.api.commonUser.exceptions.CommonUserNotFoundException;
 import com.syncgym.api.delivery.Subscription.SubscriptionController;
 import com.syncgym.api.delivery.Subscription.mappers.SubscriptionResponseRestMapper;
-import com.syncgym.api.delivery.Subscription.mappers.SubscriptionRestMapper;
 import com.syncgym.api.delivery.Subscription.responses.ListOfSubscriptionResponse;
 import com.syncgym.api.delivery.Subscription.responses.SubscriptionResponse;
 import com.syncgym.api.delivery.Subscription.rest.SubscriptionResponseRest;
 import com.syncgym.api.delivery.Subscription.rest.SubscriptionRest;
+import com.syncgym.api.plan.exceptions.PlanNotFoundException;
 import com.syncgym.api.shared.constants.CommonConstants;
+import com.syncgym.api.shared.exceptions.BadRequestException;
 import com.syncgym.api.shared.exceptions.NotFoundException;
 import com.syncgym.api.shared.exceptions.SyncgymException;
 import com.syncgym.api.shared.exceptions.handler.ExceptionResponse;
@@ -41,9 +43,6 @@ public class SubscriptionControllerImpl implements SubscriptionController {
 
     @Autowired
     private GetActiveSubscriptionByUserUseCase getActiveSubscriptionByUserUseCase;
-
-    @Autowired
-    private SubscriptionRestMapper subscriptionRestMapper;
 
     @Autowired
     private SubscriptionResponseRestMapper subscriptionResponseRestMapper;
@@ -132,15 +131,21 @@ public class SubscriptionControllerImpl implements SubscriptionController {
             }
     )
     public ResponseEntity<SyncgymResponse<SubscriptionResponseRest>> createSubscription(@Valid @RequestBody SubscriptionRest subscriptionRest) throws SyncgymException {
-        var subscription = createSubscriptionUseCase.execute(subscriptionRestMapper.mapToEntity(subscriptionRest));
+        try {
+            var subscription = createSubscriptionUseCase.execute(subscriptionRest.planName(), subscriptionRest.userUsername(), subscriptionRest.monthsDuration());
 
-        var res = new SyncgymResponse<>(
-                CommonConstants.CREATED,
-                CommonConstants.CREATED_STATUS,
-                CommonConstants.SUCCESS_MESSAGE,
-                subscriptionResponseRestMapper.mapToRest(subscription)
-        );
+            var res = new SyncgymResponse<>(
+                    CommonConstants.CREATED,
+                    CommonConstants.CREATED_STATUS,
+                    CommonConstants.SUCCESS_MESSAGE,
+                    subscriptionResponseRestMapper.mapToRest(subscription)
+            );
 
-        return ResponseEntity.status(CommonConstants.CREATED_STATUS).body(res);
+            return ResponseEntity.status(CommonConstants.CREATED_STATUS).body(res);
+        } catch (PlanNotFoundException e) {
+            throw new BadRequestException("Plan not found: " + subscriptionRest.planName());
+        } catch (CommonUserNotFoundException e) {
+            throw new BadRequestException("User not found: " + subscriptionRest.userUsername());
+        }
     }
 }

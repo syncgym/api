@@ -1,26 +1,29 @@
 package com.syncgym.api.delivery.Subscription.config;
 
+import com.syncgym.api.commonUser.usecases.getByUsernameCommonUserUseCase.GetByUsernameCommonUserUseCase;
 import com.syncgym.api.delivery.Subscription.impl.SubscriptionServiceImpl;
 import com.syncgym.api.delivery.Subscription.mappers.SubscriptionRepositoryMapper;
 import com.syncgym.api.delivery.Subscription.mappers.SubscriptionResponseRestMapper;
-import com.syncgym.api.delivery.Subscription.mappers.SubscriptionRestMapper;
+import com.syncgym.api.plan.usecases.getPlanByNameUseCase.GetPlanByNameUseCase;
 import com.syncgym.api.subscription.usecases.createSubscriptionUseCase.CreateSubscriptionUseCaseImpl;
 import com.syncgym.api.subscription.usecases.getActiveSubscriptionByUserUseCase.GetActiveSubscriptionByUserUseCaseImpl;
 import com.syncgym.api.subscription.usecases.getAllSubscriptionsByUserUseCase.GetAllSubscriptionsByUserUseCaseImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SubscriptionConfig {
 
+    @Autowired
+    private GetPlanByNameUseCase getPlanByNameUseCase;
+
+    @Autowired
+    private GetByUsernameCommonUserUseCase getByUsernameCommonUserUseCase;
+
     @Bean
     public SubscriptionRepositoryMapper subscriptionRepositoryMapper() {
         return new SubscriptionRepositoryMapper();
-    }
-
-    @Bean
-    public SubscriptionRestMapper subscriptionRestMapper() {
-        return new SubscriptionRestMapper();
     }
 
     @Bean
@@ -35,7 +38,7 @@ public class SubscriptionConfig {
 
     @Bean
     public CreateSubscriptionUseCaseImpl createSubscriptionUseCase() {
-        return new CreateSubscriptionUseCaseImpl(subscriptionService());
+        return new CreateSubscriptionUseCaseImpl(subscriptionService(), getPlanByNameUseCase, getByUsernameCommonUserUseCase);
     }
 
     @Bean
