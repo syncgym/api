@@ -7,7 +7,6 @@ import com.syncgym.api.delivery.CommonUser.entities.CommonUserEntity;
 import com.syncgym.api.delivery.CommonUser.mappers.CommonUserRepositoryMapper;
 import com.syncgym.api.delivery.CommonUser.repositories.CommonUserRepository;
 import com.syncgym.api.delivery.user.entities.UserEntity;
-import com.syncgym.api.delivery.user.mappers.UserRepositoryMapper;
 import com.syncgym.api.user.User;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -25,9 +24,6 @@ public class CommonUserServiceImpl implements CommonUserRepositoryService {
 
     @Autowired
     private CommonUserRepositoryMapper commonUserRepositoryMapper;
-
-    @Autowired
-    private UserRepositoryMapper userRepositoryMapper;
 
     @Override
     public Optional<CommonUser> findById(Long id) {

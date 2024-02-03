@@ -5,6 +5,7 @@ import com.syncgym.api.delivery.plan.mappers.PlanRepositoryMapper;
 import com.syncgym.api.delivery.plan.mappers.PlanRestMapper;
 import com.syncgym.api.plan.usecases.createPlanUseCase.CreatePlanUseCaseImpl;
 import com.syncgym.api.plan.usecases.getAllPlansUseCase.GetAllPlansUseCaseImpl;
+import com.syncgym.api.plan.usecases.getPlanByNameUseCase.GetPlanByNameUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,7 +33,12 @@ public class PlanConfig {
     }
 
     @Bean
-    CreatePlanUseCaseImpl createPlanUseCase() {
+    public CreatePlanUseCaseImpl createPlanUseCase() {
         return new CreatePlanUseCaseImpl(planService());
+    }
+
+    @Bean
+    public GetPlanByNameUseCaseImpl getPlanByNameUseCase() {
+        return new GetPlanByNameUseCaseImpl(planService());
     }
 }

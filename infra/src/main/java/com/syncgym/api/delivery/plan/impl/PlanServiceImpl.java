@@ -7,6 +7,7 @@ import com.syncgym.api.plan.ports.PlanRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PlanServiceImpl implements PlanRepositoryService {
@@ -23,12 +24,18 @@ public class PlanServiceImpl implements PlanRepositoryService {
     }
 
     @Override
+    public Optional<Plan> getPlanByName(String name) {
+        return planRepository.findByName(name)
+                .map(planRepositoryMapper::mapToEntity);
+    }
+
+    @Override
     public void savePlan(Plan plan) {
         planRepository.save(planRepositoryMapper.mapToTable(plan));
     }
 
     @Override
     public Boolean doesPlanNameExists(String name) {
-        return !planRepository.findByName(name).isEmpty();
+        return planRepository.findByName(name).isPresent();
     }
 }
