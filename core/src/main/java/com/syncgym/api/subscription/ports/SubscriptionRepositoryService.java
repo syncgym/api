@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface SubscriptionRepositoryService {
 
-    Collection<Subscription> getAllSubscriptionsByUser(Long id);
+    Collection<Subscription> getAllSubscriptionsByUser(String username);
 
     Subscription saveSubscription(Subscription subscription);
 
-    Optional<Subscription> getActiveSubscriptionByUser(Long id);
+    Optional<Subscription> getActiveSubscriptionByUser(String username);
 }
 

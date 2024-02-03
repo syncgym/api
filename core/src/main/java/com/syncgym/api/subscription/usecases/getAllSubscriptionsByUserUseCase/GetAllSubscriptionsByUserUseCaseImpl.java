@@ -14,7 +14,7 @@ public class GetAllSubscriptionsByUserUseCaseImpl implements GetAllSubscriptions
     }
 
     @Override
-    public Collection<Subscription> execute(Long id) {
-        return subscriptionRepositoryService.getAllSubscriptionsByUser(id);
+    public Collection<Subscription> execute(String username) {
+        return subscriptionRepositoryService.getAllSubscriptionsByUser(username);
     }
 }

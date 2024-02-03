@@ -13,8 +13,8 @@ public class GetActiveSubscriptionByUserUseCaseImpl implements GetActiveSubscrip
     }
 
     @Override
-    public Subscription execute(Long id) throws SubscriptionNotFoundException {
-        return subscriptionRepositoryService.getActiveSubscriptionByUser(id)
+    public Subscription execute(String username) throws SubscriptionNotFoundException {
+        return subscriptionRepositoryService.getActiveSubscriptionByUser(username)
                 .orElseThrow(SubscriptionNotFoundException::new);
     }
 }

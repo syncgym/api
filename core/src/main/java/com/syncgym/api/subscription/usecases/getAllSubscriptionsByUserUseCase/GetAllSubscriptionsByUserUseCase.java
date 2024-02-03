@@ -6,5 +6,5 @@ import java.util.Collection;
 
 public interface GetAllSubscriptionsByUserUseCase {
 
-    Collection<Subscription> execute(Long id);
+    Collection<Subscription> execute(String useraname);
 }

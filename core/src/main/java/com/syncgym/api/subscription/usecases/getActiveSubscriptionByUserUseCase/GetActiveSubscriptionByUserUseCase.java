@@ -5,5 +5,5 @@ import com.syncgym.api.subscription.exceptions.SubscriptionNotFoundException;
 
 public interface GetActiveSubscriptionByUserUseCase {
 
-    Subscription execute(Long id) throws SubscriptionNotFoundException;
+    Subscription execute(String username) throws SubscriptionNotFoundException;
 }
