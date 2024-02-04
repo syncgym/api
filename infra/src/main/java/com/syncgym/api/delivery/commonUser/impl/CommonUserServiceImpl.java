@@ -28,7 +28,7 @@ public class CommonUserServiceImpl implements CommonUserRepositoryService {
     @Override
     public Optional<CommonUser> findById(Long id) {
         return commonUserRepository.findById(id)
-                .map(commonUserRepositoryMapper::mapToEntity);
+                .map(commonUserRepositoryMapper::mapToDomain);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CommonUserServiceImpl implements CommonUserRepositoryService {
 
         var savedCommonUser = commonUserRepository.save(newCommonUser);
 
-        return commonUserRepositoryMapper.mapToEntity(savedCommonUser);
+        return commonUserRepositoryMapper.mapToDomain(savedCommonUser);
     }
 
     private boolean genderToBool(Gender gender) {

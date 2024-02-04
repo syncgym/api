@@ -7,12 +7,12 @@ import com.syncgym.api.shared.RepositoryMapper;
 public class MuscleGroupRepositoryMapper implements RepositoryMapper<MuscleGroupEntity, MuscleGroup> {
 
     @Override
-    public MuscleGroupEntity mapToTable(final MuscleGroup muscleGroup) {
-        return new MuscleGroupEntity(muscleGroup.id(), muscleGroup.name());
+    public MuscleGroupEntity mapToEntity(final MuscleGroup domain) {
+        return new MuscleGroupEntity(domain.id(), domain.name());
     }
 
     @Override
-    public MuscleGroup mapToEntity(final MuscleGroupEntity muscleGroupEntity) {
-        return new MuscleGroup(muscleGroupEntity.getId(), muscleGroupEntity.getName());
+    public MuscleGroup mapToDomain(final MuscleGroupEntity entity) {
+        return new MuscleGroup(entity.getId(), entity.getName());
     }
 }

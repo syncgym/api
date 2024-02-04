@@ -20,12 +20,12 @@ public class MuscleGroupServiceImpl implements MuscleGroupRepositoryService {
     @Override
     public Collection<MuscleGroup> getAllMuscleGroups() {
         return muscleGroupRepository.findAll()
-                .stream().map(muscleGroupRepositoryMapper::mapToEntity).toList();
+                .stream().map(muscleGroupRepositoryMapper::mapToDomain).toList();
     }
 
     @Override
     public Optional<MuscleGroup> getMuscleGroupByName(String name) {
         return muscleGroupRepository.findByName(name)
-                .map(muscleGroupRepositoryMapper::mapToEntity);
+                .map(muscleGroupRepositoryMapper::mapToDomain);
     }
 }

@@ -12,37 +12,37 @@ public class UserRepositoryMapper implements RepositoryMapper<UserEntity, User> 
     private PermissionRepositoryMapper permissionRepositoryMapper;
 
     @Override
-    public UserEntity mapToTable(final User user) {
-        var permissions = user.permissions().stream()
-                .map(permissionRepositoryMapper::mapToTable)
+    public UserEntity mapToEntity(final User domain) {
+        var permissions = domain.permissions().stream()
+                .map(permissionRepositoryMapper::mapToEntity)
                 .toList();
 
         return new UserEntity(
-                user.id(),
-                user.username(),
-                user.password(),
-                user.accountNonExpired(),
-                user.accountNonLocked(),
-                user.credentialsNonExpired(),
-                user.enabled(),
+                domain.id(),
+                domain.username(),
+                domain.password(),
+                domain.accountNonExpired(),
+                domain.accountNonLocked(),
+                domain.credentialsNonExpired(),
+                domain.enabled(),
                 permissions
         );
     }
 
     @Override
-    public User mapToEntity(final UserEntity userEntity) {
-        var permissions = userEntity.getPermissions().stream()
-                .map(permissionRepositoryMapper::mapToEntity)
+    public User mapToDomain(final UserEntity entity) {
+        var permissions = entity.getPermissions().stream()
+                .map(permissionRepositoryMapper::mapToDomain)
                 .toList();
 
         return new User(
-                userEntity.getId(),
-                userEntity.getUsername(),
-                userEntity.getPassword(),
-                userEntity.isAccountNonExpired(),
-                userEntity.isAccountNonLocked(),
-                userEntity.isCredentialsNonExpired(),
-                userEntity.isEnabled(),
+                entity.getId(),
+                entity.getUsername(),
+                entity.getPassword(),
+                entity.isAccountNonExpired(),
+                entity.isAccountNonLocked(),
+                entity.isCredentialsNonExpired(),
+                entity.isEnabled(),
                 permissions
         );
     }

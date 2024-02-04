@@ -20,12 +20,12 @@ public class PaymentMethodServiceImpl implements PaymentMethodRepositoryService 
     @Override
     public Collection<PaymentMethod> getAllPaymentMethods() {
         return paymentMethodRepository.findAll()
-                .stream().map(paymentMethodRepositoryMapper::mapToEntity).collect(Collectors.toList());
+                .stream().map(paymentMethodRepositoryMapper::mapToDomain).collect(Collectors.toList());
     }
 
     @Override
     public PaymentMethod savePaymentMethod(PaymentMethod paymentMethod) {
         return paymentMethodRepositoryMapper
-                .mapToEntity(paymentMethodRepository.save(paymentMethodRepositoryMapper.mapToTable(paymentMethod)));
+                .mapToDomain(paymentMethodRepository.save(paymentMethodRepositoryMapper.mapToEntity(paymentMethod)));
     }
 }

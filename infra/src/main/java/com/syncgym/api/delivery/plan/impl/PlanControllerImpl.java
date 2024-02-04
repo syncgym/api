@@ -87,7 +87,7 @@ public class PlanControllerImpl implements PlanController {
     @PostMapping
     public ResponseEntity<SyncgymResponse<PlanRest>> createPlan(@Valid @RequestBody final PlanRest plan) throws SyncgymException {
         try {
-            createPlanUseCase.execute(planReqMapper.mapToEntity(plan));
+            createPlanUseCase.execute(planReqMapper.mapToDomain(plan));
         } catch (PlanAlreadyExistException e) {
             throw new BadRequestException("Plan already exists");
         }

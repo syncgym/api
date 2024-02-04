@@ -7,13 +7,13 @@ import com.syncgym.api.shared.RestMapper;
 public class PlanRestMapper implements RestMapper<PlanRest, Plan> {
 
     @Override
-    public Plan mapToEntity(final PlanRest rest) {
+    public Plan mapToDomain(final PlanRest rest) {
         return new Plan(null, rest.name(), parseInt(rest.value()));
     }
 
     @Override
-    public PlanRest mapToRest(final Plan entity) {
-        return new PlanRest(entity.name(), parseDouble(entity.value()));
+    public PlanRest mapToRest(final Plan domain) {
+        return new PlanRest(domain.name(), parseDouble(domain.value()));
     }
 
     private int parseInt(Double value) {

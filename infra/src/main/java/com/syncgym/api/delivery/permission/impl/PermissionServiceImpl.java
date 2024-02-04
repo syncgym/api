@@ -21,13 +21,13 @@ public class PermissionServiceImpl implements PermissionRepositoryService {
     public Optional<List<Permission>> getAllPermissions() {
         return Optional.of(
                 permissionRepository.findAll()
-                        .stream().map(permissionRepositoryMapper::mapToEntity).toList()
+                        .stream().map(permissionRepositoryMapper::mapToDomain).toList()
         );
     }
 
     @Override
     public Optional<Permission> getPermissionByDescription(String description) {
         return permissionRepository.findByDescription(description)
-                .map(permissionRepositoryMapper::mapToEntity);
+                .map(permissionRepositoryMapper::mapToDomain);
     }
 }

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public interface RepositoryMapper<T extends Serializable, P extends Serializable> {
 
-    default T mapToTable(final P persistenceObject) {
+    default T mapToEntity(final P domain) {
         throw new UnsupportedOperationException();
     }
 
-    default P mapToEntity(final T tableObject) {
+    default P mapToDomain(final T entity) {
         throw new UnsupportedOperationException();
     }
 }

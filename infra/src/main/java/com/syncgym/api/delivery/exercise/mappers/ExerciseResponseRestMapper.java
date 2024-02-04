@@ -8,13 +8,13 @@ import com.syncgym.api.shared.RestMapper;
 public class ExerciseResponseRestMapper implements RestMapper<ExerciseResponseRest, Exercise> {
 
     @Override
-    public ExerciseResponseRest mapToRest(Exercise entity) {
+    public ExerciseResponseRest mapToRest(Exercise domain) {
         return new ExerciseResponseRest(
-                entity.name(),
-                entity.targetMuscleGroup().name(),
-                entity.allMuscleGroups().stream().map(MuscleGroup::name).toList(),
-                entity.difficulty(),
-                entity.description()
+                domain.name(),
+                domain.targetMuscleGroup().name(),
+                domain.allMuscleGroups().stream().map(MuscleGroup::name).toList(),
+                domain.difficulty(),
+                domain.description()
         );
     }
 }

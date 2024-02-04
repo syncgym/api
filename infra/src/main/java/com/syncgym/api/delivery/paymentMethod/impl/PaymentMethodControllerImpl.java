@@ -87,7 +87,7 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
     )
     public ResponseEntity<SyncgymResponse<PaymentMethodRest>> createPaymentMethod(@Valid @RequestBody final PaymentMethodRest paymentMethodReq) throws SyncgymException {
         try {
-            createPaymentMethodUseCase.execute(paymentMethodReqMapper.mapToEntity(paymentMethodReq));
+            createPaymentMethodUseCase.execute(paymentMethodReqMapper.mapToDomain(paymentMethodReq));
         } catch (CreatePaymentMethodException e) {
             throw new BadRequestException("Payment method already exists");
         }

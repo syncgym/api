@@ -7,12 +7,12 @@ import com.syncgym.api.shared.RepositoryMapper;
 public class PlanRepositoryMapper implements RepositoryMapper<PlanEntity, Plan> {
 
     @Override
-    public PlanEntity mapToTable(final Plan plan) {
-        return new PlanEntity(plan.id(), plan.name(), plan.value());
+    public PlanEntity mapToEntity(final Plan domain) {
+        return new PlanEntity(domain.id(), domain.name(), domain.value());
     }
 
     @Override
-    public Plan mapToEntity(final PlanEntity planEntity) {
-        return new Plan(planEntity.getId(), planEntity.getName(), planEntity.getValue());
+    public Plan mapToDomain(final PlanEntity entity) {
+        return new Plan(entity.getId(), entity.getName(), entity.getValue());
     }
 }

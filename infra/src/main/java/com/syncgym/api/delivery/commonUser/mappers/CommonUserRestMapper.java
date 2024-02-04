@@ -7,7 +7,7 @@ import com.syncgym.api.shared.RestMapper;
 public class CommonUserRestMapper implements RestMapper<CommonUserRest, CommonUser> {
 
     @Override
-    public CommonUser mapToEntity(final CommonUserRest rest) {
+    public CommonUser mapToDomain(final CommonUserRest rest) {
 
         return new CommonUser(
                 null,
@@ -21,15 +21,15 @@ public class CommonUserRestMapper implements RestMapper<CommonUserRest, CommonUs
     }
 
     @Override
-    public CommonUserRest mapToRest(CommonUser entity) {
+    public CommonUserRest mapToRest(CommonUser domain) {
         return new CommonUserRest(
-                entity.user().username(),
-                entity.user().password(),
-                entity.firstName(),
-                entity.lastName(),
-                entity.gender(),
-                entity.email(),
-                entity.dateOfBirth()
+                domain.user().username(),
+                domain.user().password(),
+                domain.firstName(),
+                domain.lastName(),
+                domain.gender(),
+                domain.email(),
+                domain.dateOfBirth()
         );
     }
 }

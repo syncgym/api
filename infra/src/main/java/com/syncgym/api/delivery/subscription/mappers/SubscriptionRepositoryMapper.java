@@ -16,24 +16,24 @@ public class SubscriptionRepositoryMapper implements RepositoryMapper<Subscripti
     private CommonUserRepositoryMapper commonUserRepositoryMapper;
 
     @Override
-    public SubscriptionEntity mapToTable(final Subscription subscription) {
+    public SubscriptionEntity mapToEntity(final Subscription domain) {
         return new SubscriptionEntity(
-                subscription.id(),
-                planRepositoryMapper.mapToTable(subscription.plan()),
-                commonUserRepositoryMapper.mapToTable(subscription.commonUser()),
-                subscription.startDate(),
-                subscription.endDate()
+                domain.id(),
+                planRepositoryMapper.mapToEntity(domain.plan()),
+                commonUserRepositoryMapper.mapToEntity(domain.commonUser()),
+                domain.startDate(),
+                domain.endDate()
         );
     }
 
     @Override
-    public Subscription mapToEntity(final SubscriptionEntity subscriptionEntity) {
+    public Subscription mapToDomain(final SubscriptionEntity entity) {
         return new Subscription(
-                subscriptionEntity.getId(),
-                planRepositoryMapper.mapToEntity(subscriptionEntity.getPlan()),
-                commonUserRepositoryMapper.mapToEntity(subscriptionEntity.getCommonUser()),
-                subscriptionEntity.getStartDate(),
-                subscriptionEntity.getEndDate()
+                entity.getId(),
+                planRepositoryMapper.mapToDomain(entity.getPlan()),
+                commonUserRepositoryMapper.mapToDomain(entity.getCommonUser()),
+                entity.getStartDate(),
+                entity.getEndDate()
         );
     }
 }

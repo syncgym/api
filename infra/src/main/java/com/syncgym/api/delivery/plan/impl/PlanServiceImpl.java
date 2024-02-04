@@ -20,18 +20,18 @@ public class PlanServiceImpl implements PlanRepositoryService {
 
     @Override
     public Collection<Plan> getAllPlans() {
-        return planRepository.findAll().stream().map(planRepositoryMapper::mapToEntity).collect(Collectors.toList());
+        return planRepository.findAll().stream().map(planRepositoryMapper::mapToDomain).collect(Collectors.toList());
     }
 
     @Override
     public Optional<Plan> getPlanByName(String name) {
         return planRepository.findByName(name)
-                .map(planRepositoryMapper::mapToEntity);
+                .map(planRepositoryMapper::mapToDomain);
     }
 
     @Override
     public void savePlan(Plan plan) {
-        planRepository.save(planRepositoryMapper.mapToTable(plan));
+        planRepository.save(planRepositoryMapper.mapToEntity(plan));
     }
 
     @Override

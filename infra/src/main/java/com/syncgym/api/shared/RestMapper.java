@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public interface RestMapper<R extends Serializable, E extends Serializable> {
 
-    default E mapToEntity(final R rest) {
+    default E mapToDomain(final R rest) {
         throw new UnsupportedOperationException();
     }
 
-    default R mapToRest(final E entity) {
+    default R mapToRest(final E domain) {
         throw new UnsupportedOperationException();
     }
 }

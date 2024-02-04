@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserRepositoryService {
     @Override
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findUserByUsername(username)
-                .map(userRepositoryMapper::mapToEntity);
+                .map(userRepositoryMapper::mapToDomain);
     }
 
     @Override
     public User save(String username, String password, List<Permission> permissions) {
-        var permissionsEntity = permissions.stream().map(permissionRepositoryMapper::mapToTable).toList();
+        var permissionsEntity = permissions.stream().map(permissionRepositoryMapper::mapToEntity).toList();
         var user = userRepository.save(new UserEntity(username, passwordEncoder.encode(password), permissionsEntity));
 
-        return userRepositoryMapper.mapToEntity(user);
+        return userRepositoryMapper.mapToDomain(user);
     }
 }

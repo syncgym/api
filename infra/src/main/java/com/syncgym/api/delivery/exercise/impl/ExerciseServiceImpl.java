@@ -19,12 +19,12 @@ public class ExerciseServiceImpl implements ExerciseRepositoryService {
     @Override
     public Collection<Exercise> getAllExercisesByTargetMuscleGroup(String targetMuscleGroup) {
         return exerciseRepository.findAllByTargetMuscleGroupName(targetMuscleGroup)
-                .stream().map(exerciseRepositoryMapper::mapToEntity).toList();
+                .stream().map(exerciseRepositoryMapper::mapToDomain).toList();
     }
 
     @Override
     public Collection<Exercise> getAllExercisesByMuscleGroup(String muscleGroup) {
         return exerciseRepository.findAllByAllMuscleGroupsName(muscleGroup)
-                .stream().map(exerciseRepositoryMapper::mapToEntity).toList();
+                .stream().map(exerciseRepositoryMapper::mapToDomain).toList();
     }
 }

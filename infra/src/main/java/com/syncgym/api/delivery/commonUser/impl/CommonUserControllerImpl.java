@@ -103,7 +103,7 @@ public class CommonUserControllerImpl implements CommonUserController {
             var commonUser = createCommonUserUseCase.execute(
                     commonUserRest.username(),
                     commonUserRest.password(),
-                    reqMapper.mapToEntity(commonUserRest)
+                    reqMapper.mapToDomain(commonUserRest)
             );
 
             var res = new SyncgymResponse<>(

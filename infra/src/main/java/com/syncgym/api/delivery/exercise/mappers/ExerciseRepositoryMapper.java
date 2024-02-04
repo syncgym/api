@@ -12,26 +12,26 @@ public class ExerciseRepositoryMapper implements RepositoryMapper<ExerciseEntity
     private MuscleGroupRepositoryMapper muscleGroupRepositoryMapper;
 
     @Override
-    public ExerciseEntity mapToTable(Exercise persistenceObject) {
+    public ExerciseEntity mapToEntity(Exercise domain) {
         return new ExerciseEntity(
-                persistenceObject.id(),
-                muscleGroupRepositoryMapper.mapToTable(persistenceObject.targetMuscleGroup()),
-                persistenceObject.name(),
-                persistenceObject.difficulty(),
-                persistenceObject.description(),
-                persistenceObject.allMuscleGroups().stream().map(muscleGroupRepositoryMapper::mapToTable).toList()
+                domain.id(),
+                muscleGroupRepositoryMapper.mapToEntity(domain.targetMuscleGroup()),
+                domain.name(),
+                domain.difficulty(),
+                domain.description(),
+                domain.allMuscleGroups().stream().map(muscleGroupRepositoryMapper::mapToEntity).toList()
         );
     }
 
     @Override
-    public Exercise mapToEntity(ExerciseEntity tableObject) {
+    public Exercise mapToDomain(ExerciseEntity entity) {
         return new Exercise(
-                tableObject.getId(),
-                tableObject.getName(),
-                muscleGroupRepositoryMapper.mapToEntity(tableObject.getTargetMuscleGroup()),
-                tableObject.getAllMuscleGroups().stream().map(muscleGroupRepositoryMapper::mapToEntity).toList(),
-                tableObject.getDifficulty(),
-                tableObject.getDescription()
+                entity.getId(),
+                entity.getName(),
+                muscleGroupRepositoryMapper.mapToDomain(entity.getTargetMuscleGroup()),
+                entity.getAllMuscleGroups().stream().map(muscleGroupRepositoryMapper::mapToDomain).toList(),
+                entity.getDifficulty(),
+                entity.getDescription()
         );
     }
 }

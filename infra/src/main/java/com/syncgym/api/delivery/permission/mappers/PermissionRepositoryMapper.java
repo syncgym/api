@@ -7,12 +7,12 @@ import com.syncgym.api.shared.RepositoryMapper;
 public class PermissionRepositoryMapper implements RepositoryMapper<PermissionEntity, Permission> {
 
     @Override
-    public PermissionEntity mapToTable(final Permission permission) {
-        return new PermissionEntity(permission.id(), permission.description());
+    public PermissionEntity mapToEntity(final Permission domain) {
+        return new PermissionEntity(domain.id(), domain.description());
     }
 
     @Override
-    public Permission mapToEntity(final PermissionEntity permissionEntity) {
-        return new Permission(permissionEntity.getId(), permissionEntity.getDescription());
+    public Permission mapToDomain(final PermissionEntity entity) {
+        return new Permission(entity.getId(), entity.getDescription());
     }
 }

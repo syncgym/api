@@ -7,12 +7,12 @@ import com.syncgym.api.shared.RepositoryMapper;
 public class PaymentMethodRepositoryMapper implements RepositoryMapper<PaymentMethodEntity, PaymentMethod> {
 
     @Override
-    public PaymentMethodEntity mapToTable(final PaymentMethod paymentMethod) {
-        return new PaymentMethodEntity(paymentMethod.id(), paymentMethod.name());
+    public PaymentMethodEntity mapToEntity(final PaymentMethod domain) {
+        return new PaymentMethodEntity(domain.id(), domain.name());
     }
 
     @Override
-    public PaymentMethod mapToEntity(final PaymentMethodEntity paymentMethodEntity) {
-        return new PaymentMethod(paymentMethodEntity.getId(), paymentMethodEntity.getName());
+    public PaymentMethod mapToDomain(final PaymentMethodEntity entity) {
+        return new PaymentMethod(entity.getId(), entity.getName());
     }
 }

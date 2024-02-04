@@ -16,12 +16,12 @@ public class SubscriptionResponseRestMapper implements RestMapper<SubscriptionRe
     private PlanRestMapper planRestMapper;
 
     @Override
-    public SubscriptionResponseRest mapToRest(Subscription entity) {
+    public SubscriptionResponseRest mapToRest(Subscription domain) {
         return new SubscriptionResponseRest(
-                commonUserResponseRestMapper.mapToRest(entity.commonUser()),
-                planRestMapper.mapToRest(entity.plan()),
-                entity.startDate(),
-                entity.endDate()
+                commonUserResponseRestMapper.mapToRest(domain.commonUser()),
+                planRestMapper.mapToRest(domain.plan()),
+                domain.startDate(),
+                domain.endDate()
         );
     }
 }

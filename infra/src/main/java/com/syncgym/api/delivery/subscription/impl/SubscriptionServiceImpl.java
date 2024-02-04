@@ -19,12 +19,12 @@ public class SubscriptionServiceImpl implements SubscriptionRepositoryService {
     @Override
     public Collection<Subscription> getAllSubscriptionsByUser(String username) {
         return subscriptionRepository.findAllByCommonUserUserUsername(username)
-                .stream().map(subscriptionRepositoryMapper::mapToEntity).toList();
+                .stream().map(subscriptionRepositoryMapper::mapToDomain).toList();
     }
 
     @Override
     public Subscription saveSubscription(Subscription subscription) {
         return subscriptionRepositoryMapper
-                .mapToEntity(subscriptionRepository.save(subscriptionRepositoryMapper.mapToTable(subscription)));
+                .mapToDomain(subscriptionRepository.save(subscriptionRepositoryMapper.mapToEntity(subscription)));
     }
 }

@@ -13,28 +13,28 @@ public class CommonUserRepositoryMapper implements RepositoryMapper<CommonUserEn
     private UserRepositoryMapper userRepositoryMapper;
 
     @Override
-    public CommonUserEntity mapToTable(final CommonUser user) {
+    public CommonUserEntity mapToEntity(final CommonUser domain) {
         return new CommonUserEntity(
-                user.id(),
-                userRepositoryMapper.mapToTable(user.user()),
-                user.firstName(),
-                user.lastName(),
-                user.dateOfBirth(),
-                genderToBool(user.gender()),
-                user.email()
+                domain.id(),
+                userRepositoryMapper.mapToEntity(domain.user()),
+                domain.firstName(),
+                domain.lastName(),
+                domain.dateOfBirth(),
+                genderToBool(domain.gender()),
+                domain.email()
         );
     }
 
     @Override
-    public CommonUser mapToEntity(final CommonUserEntity userEntity) {
+    public CommonUser mapToDomain(final CommonUserEntity entity) {
         return new CommonUser(
-                userEntity.getId(),
-                userRepositoryMapper.mapToEntity(userEntity.getUser()),
-                userEntity.getFirstName(),
-                userEntity.getLastName(),
-                userEntity.getDateOfBirth(),
-                boolToGender(userEntity.isGender()),
-                userEntity.getEmail()
+                entity.getId(),
+                userRepositoryMapper.mapToDomain(entity.getUser()),
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getDateOfBirth(),
+                boolToGender(entity.isGender()),
+                entity.getEmail()
         );
     }
 
