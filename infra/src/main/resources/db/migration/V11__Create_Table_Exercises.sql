@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `exercises` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `target_muscle_group_id` bigint NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) UNIQUE,
   `difficulty` TINYINT NOT NULL,
   `description` varchar(255) NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
