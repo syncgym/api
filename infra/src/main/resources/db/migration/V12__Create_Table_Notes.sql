@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_notes_user` (`user_id`),
-  CONSTRAINT `fk_notes_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_notes_user` FOREIGN KEY (`user_id`) REFERENCES `common_users` (`id`),
   CONSTRAINT `fk_notes_exercise` FOREIGN KEY (`exercise_id`) REFERENCES `exercises` (`id`)
 ) ENGINE=InnoDB;
