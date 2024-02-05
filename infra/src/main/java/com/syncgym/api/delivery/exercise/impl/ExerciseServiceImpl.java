@@ -7,6 +7,7 @@ import com.syncgym.api.exercise.ports.ExerciseRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public class ExerciseServiceImpl implements ExerciseRepositoryService {
 
@@ -26,5 +27,11 @@ public class ExerciseServiceImpl implements ExerciseRepositoryService {
     public Collection<Exercise> getAllExercisesByMuscleGroup(String muscleGroup) {
         return exerciseRepository.findAllByAllMuscleGroupsName(muscleGroup)
                 .stream().map(exerciseRepositoryMapper::mapToDomain).toList();
+    }
+
+    @Override
+    public Optional<Exercise> getExerciseByName(String exerciseName) {
+        return exerciseRepository.findByName(exerciseName)
+                .map(exerciseRepositoryMapper::mapToDomain);
     }
 }
