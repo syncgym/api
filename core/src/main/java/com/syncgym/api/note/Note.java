@@ -7,8 +7,13 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
-public record Note(Long id, CommonUser commonUser, Exercise exercise, String description,
-                   Date date) implements Serializable {
+public record Note(
+        Long id,
+        CommonUser commonUser,
+        Exercise exercise,
+        String description,
+        Date date
+) implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

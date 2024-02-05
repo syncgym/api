@@ -5,5 +5,5 @@ import com.syncgym.api.note.exceptions.NoteNotFoundException;
 
 public interface UpdateNoteByIdUseCase {
 
-    Note execute(Note note) throws NoteNotFoundException;
+    Note execute(Long id, String noteContent) throws NoteNotFoundException;
 }
