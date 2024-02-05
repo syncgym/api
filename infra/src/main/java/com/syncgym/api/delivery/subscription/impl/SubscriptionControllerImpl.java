@@ -118,7 +118,7 @@ public class SubscriptionControllerImpl implements SubscriptionController {
     @Operation(summary = "Create subscription", description = "Create subscription",
             tags = {"Subscription"},
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK",
+                    @ApiResponse(responseCode = "201", description = "Created",
                             content = @Content(schema = @Schema(implementation = SubscriptionResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),

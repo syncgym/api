@@ -86,7 +86,7 @@ public class CommonUserControllerImpl implements CommonUserController {
     @Operation(summary = "Create common user", description = "Create a common user",
             tags = {"Common User"},
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK",
+                    @ApiResponse(responseCode = "201", description = "Created",
                             content = @Content(schema = @Schema(implementation = CommonUserResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
@@ -107,13 +107,13 @@ public class CommonUserControllerImpl implements CommonUserController {
             );
 
             var res = new SyncgymResponse<>(
-                    CommonConstants.OK,
-                    CommonConstants.OK_STATUS,
+                    CommonConstants.CREATED,
+                    CommonConstants.CREATED_STATUS,
                     CommonConstants.SUCCESS_MESSAGE,
                     responseMapper.mapToRest(commonUser)
             );
 
-            return ResponseEntity.ok(res);
+            return ResponseEntity.status(CommonConstants.CREATED_STATUS).body(res);
         } catch (CommonUserAlreadyExistsException e) {
             throw new BadRequestException("User already exists");
         } catch (CommonUserInternalException e) {

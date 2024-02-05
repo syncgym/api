@@ -70,7 +70,7 @@ public class PlanControllerImpl implements PlanController {
     @Operation(summary = "Create", description = "Create plan",
             tags = {"Plan"},
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK",
+                    @ApiResponse(responseCode = "201", description = "Created",
                             content = @Content(schema = @Schema(implementation = CreatePlanResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),

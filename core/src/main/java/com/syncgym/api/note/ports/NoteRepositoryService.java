@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface NoteRepositoryService {
 
-    Collection<Note> getAllNotesByExercise(String exerciseName);
+    Collection<Note> getAllNotesByUserUsernameAndExercise(String exerciseName, String userUsername);
 
     Optional<Note> getNoteById(Long id);
 

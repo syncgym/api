@@ -71,7 +71,7 @@ public class PaymentMethodControllerImpl implements PaymentMethodController {
     @Operation(summary = "Create", description = "Create payment method",
             tags = {"Payment Method"},
             responses = {
-                    @ApiResponse(responseCode = "200", description = "OK",
+                    @ApiResponse(responseCode = "201", description = "Created",
                             content = @Content(schema = @Schema(implementation = CreatePaymentMethodResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
