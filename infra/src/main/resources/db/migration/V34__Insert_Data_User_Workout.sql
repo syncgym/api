@@ -1,4 +1,4 @@
-INSERT INTO `user_workout` (`user_id`, `workout_id`, `completed_sessions`) VALUES
+INSERT INTO `user_workout` (`user_id`, `workout_id`, `completed_splits`) VALUES
     (1, 1, 3), (1, 2, 2), (1, 3, 4), (1, 4, 1),
     (2, 2, 3), (2, 4, 2), (2, 6, 4), (2, 8, 1),
     (3, 1, 2), (3, 3, 3), (3, 5, 1), (3, 7, 4),

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `workouts` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) UNIQUE,
   `duration` TINYINT NOT NULL,
   `difficulty` TINYINT NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

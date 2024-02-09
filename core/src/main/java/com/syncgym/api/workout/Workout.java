@@ -1,6 +1,5 @@
 package com.syncgym.api.workout;
 
-import com.syncgym.api.commonUser.CommonUser;
 import com.syncgym.api.split.Split;
 
 import java.io.Serial;
@@ -12,10 +11,7 @@ public record Workout(
         String name,
         Byte duration,
         Byte difficulty,
-        List<Split> splits,
-        CommonUser commonUser,
-        Byte completedSplits,
-        boolean is_active
+        List<Split> splits
 ) implements Serializable {
 
     @Serial
