@@ -6,6 +6,7 @@ import com.syncgym.api.delivery.exercise.responses.ListOfExerciseResponse;
 import com.syncgym.api.delivery.exercise.rest.ExerciseResponseRest;
 import com.syncgym.api.exercise.usecases.getAllExercisesByMuscleGroupUseCase.GetAllExercisesByMuscleGroupUseCase;
 import com.syncgym.api.exercise.usecases.getAllExercisesByTargetMuscleGroupUseCase.GetAllExercisesByTargetMuscleGroupUseCase;
+import com.syncgym.api.exercise.usecases.getAllExercisesUseCase.GetAllExercisesUseCase;
 import com.syncgym.api.shared.constants.CommonConstants;
 import com.syncgym.api.shared.exceptions.SyncgymException;
 import com.syncgym.api.shared.exceptions.handler.ExceptionResponse;
@@ -30,6 +31,9 @@ import java.util.List;
 public class ExerciseControllerImpl implements ExerciseController {
 
     @Autowired
+    private GetAllExercisesUseCase getAllExercisesUseCase;
+
+    @Autowired
     private GetAllExercisesByMuscleGroupUseCase getAllExercisesByMuscleGroupUseCase;
 
     @Autowired
@@ -37,6 +41,35 @@ public class ExerciseControllerImpl implements ExerciseController {
 
     @Autowired
     private ExerciseResponseRestMapper exerciseResponseRestMapper;
+
+    @Override
+    @GetMapping
+    @Operation(summary = "Find all exercises", description = "Find all exercises",
+            tags = {"Exercise"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = ListOfExerciseResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
+    public ResponseEntity<SyncgymResponse<List<ExerciseResponseRest>>> getAllExercises() throws SyncgymException {
+        var res = new SyncgymResponse<>(
+                CommonConstants.OK,
+                CommonConstants.OK_STATUS,
+                CommonConstants.SUCCESS_MESSAGE,
+                getAllExercisesUseCase.execute()
+                        .stream().map(exerciseResponseRestMapper::mapToRest).toList()
+        );
+
+        return ResponseEntity.ok(res);
+    }
 
     @Override
     @GetMapping("/muscle-group/{name}")

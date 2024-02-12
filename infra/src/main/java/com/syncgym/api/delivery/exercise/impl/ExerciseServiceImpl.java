@@ -17,6 +17,13 @@ public class ExerciseServiceImpl implements ExerciseRepositoryService {
     @Autowired
     private ExerciseRepositoryMapper exerciseRepositoryMapper;
 
+
+    @Override
+    public Collection<Exercise> getAllExercises() {
+        return exerciseRepository.findAll()
+                .stream().map(exerciseRepositoryMapper::mapToDomain).toList();
+    }
+
     @Override
     public Collection<Exercise> getAllExercisesByTargetMuscleGroup(String targetMuscleGroup) {
         return exerciseRepository.findAllByTargetMuscleGroupName(targetMuscleGroup)
