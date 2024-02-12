@@ -4,7 +4,7 @@ import com.syncgym.api.commonUser.exceptions.CommonUserAlreadyExistsException;
 import com.syncgym.api.commonUser.exceptions.CommonUserInternalException;
 import com.syncgym.api.commonUser.exceptions.CommonUserNotFoundException;
 import com.syncgym.api.commonUser.usecases.createCommonUserUseCase.CreateCommonUserUseCase;
-import com.syncgym.api.commonUser.usecases.getByUsernameCommonUserUseCase.GetByUsernameCommonUserUseCase;
+import com.syncgym.api.commonUser.usecases.getCommonUserByUsernameUseCase.GetCommonUserByUsernameUseCase;
 import com.syncgym.api.delivery.commonUser.CommonUserController;
 import com.syncgym.api.delivery.commonUser.mappers.CommonUserResponseRestMapper;
 import com.syncgym.api.delivery.commonUser.mappers.CommonUserRestMapper;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommonUserControllerImpl implements CommonUserController {
 
     @Autowired
-    private GetByUsernameCommonUserUseCase getByUsernameCommonUserUseCase;
+    private GetCommonUserByUsernameUseCase getCommonUserByUsernameUseCase;
 
     @Autowired
     private CreateCommonUserUseCase createCommonUserUseCase;
@@ -66,7 +66,7 @@ public class CommonUserControllerImpl implements CommonUserController {
     )
     public ResponseEntity<SyncgymResponse<CommonUserResponseRest>> getCommonUserByUsername(@PathVariable("username") String username) throws SyncgymException {
         try {
-            var commonUser = getByUsernameCommonUserUseCase.execute(username);
+            var commonUser = getCommonUserByUsernameUseCase.execute(username);
 
             var res = new SyncgymResponse<>(
                     CommonConstants.OK,

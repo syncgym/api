@@ -1,6 +1,6 @@
 package com.syncgym.api.delivery.note.config;
 
-import com.syncgym.api.commonUser.usecases.getByUsernameCommonUserUseCase.GetByUsernameCommonUserUseCaseImpl;
+import com.syncgym.api.commonUser.usecases.getCommonUserByUsernameUseCase.GetCommonUserByUsernameUseCaseImpl;
 import com.syncgym.api.delivery.note.impl.NoteServiceImpl;
 import com.syncgym.api.delivery.note.mappers.NoteRepositoryMapper;
 import com.syncgym.api.delivery.note.mappers.NoteResponseRestMapper;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class NoteConfig {
 
     @Autowired
-    private GetByUsernameCommonUserUseCaseImpl getByUsernameCommonUserUseCase;
+    private GetCommonUserByUsernameUseCaseImpl getCommonUserByUsernameUseCase;
 
     @Autowired
     private GetExerciseByNameUseCaseImpl getExerciseByNameUseCase;
@@ -50,7 +50,7 @@ public class NoteConfig {
 
     @Bean
     public CreateNoteUseCaseImpl createNote() {
-        return new CreateNoteUseCaseImpl(noteService(), getByUsernameCommonUserUseCase, getExerciseByNameUseCase);
+        return new CreateNoteUseCaseImpl(noteService(), getCommonUserByUsernameUseCase, getExerciseByNameUseCase);
     }
 
     @Bean

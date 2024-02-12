@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CommonUserRepositoryService {
 
-    Optional<CommonUser> findById(Long id);
+    Optional<CommonUser> findByUsername(String username);
 
     CommonUser save(CommonUser commonUser, User user);
 }

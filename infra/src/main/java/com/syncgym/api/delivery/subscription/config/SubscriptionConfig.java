@@ -1,6 +1,6 @@
 package com.syncgym.api.delivery.subscription.config;
 
-import com.syncgym.api.commonUser.usecases.getByUsernameCommonUserUseCase.GetByUsernameCommonUserUseCase;
+import com.syncgym.api.commonUser.usecases.getCommonUserByUsernameUseCase.GetCommonUserByUsernameUseCase;
 import com.syncgym.api.delivery.subscription.impl.SubscriptionServiceImpl;
 import com.syncgym.api.delivery.subscription.mappers.SubscriptionRepositoryMapper;
 import com.syncgym.api.delivery.subscription.mappers.SubscriptionResponseRestMapper;
@@ -19,7 +19,7 @@ public class SubscriptionConfig {
     private GetPlanByNameUseCase getPlanByNameUseCase;
 
     @Autowired
-    private GetByUsernameCommonUserUseCase getByUsernameCommonUserUseCase;
+    private GetCommonUserByUsernameUseCase getCommonUserByUsernameUseCase;
 
     @Bean
     public SubscriptionRepositoryMapper subscriptionRepositoryMapper() {
@@ -38,7 +38,7 @@ public class SubscriptionConfig {
 
     @Bean
     public CreateSubscriptionUseCaseImpl createSubscriptionUseCase() {
-        return new CreateSubscriptionUseCaseImpl(subscriptionService(), getPlanByNameUseCase, getByUsernameCommonUserUseCase);
+        return new CreateSubscriptionUseCaseImpl(subscriptionService(), getPlanByNameUseCase, getCommonUserByUsernameUseCase);
     }
 
     @Bean

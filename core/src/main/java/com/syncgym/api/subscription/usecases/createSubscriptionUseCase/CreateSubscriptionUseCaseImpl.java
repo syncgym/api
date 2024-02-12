@@ -1,7 +1,7 @@
 package com.syncgym.api.subscription.usecases.createSubscriptionUseCase;
 
 import com.syncgym.api.commonUser.exceptions.CommonUserNotFoundException;
-import com.syncgym.api.commonUser.usecases.getByUsernameCommonUserUseCase.GetByUsernameCommonUserUseCase;
+import com.syncgym.api.commonUser.usecases.getCommonUserByUsernameUseCase.GetCommonUserByUsernameUseCase;
 import com.syncgym.api.plan.exceptions.PlanNotFoundException;
 import com.syncgym.api.plan.usecases.getPlanByNameUseCase.GetPlanByNameUseCase;
 import com.syncgym.api.subscription.Subscription;
@@ -15,18 +15,18 @@ public class CreateSubscriptionUseCaseImpl implements CreateSubscriptionUseCase 
 
     private final GetPlanByNameUseCase getPlanByNameUseCase;
 
-    private final GetByUsernameCommonUserUseCase getByUsernameCommonUserUseCase;
+    private final GetCommonUserByUsernameUseCase getCommonUserByUsernameUseCase;
 
-    public CreateSubscriptionUseCaseImpl(SubscriptionRepositoryService subscriptionRepositoryService, GetPlanByNameUseCase getPlanByNameUseCase, GetByUsernameCommonUserUseCase getByUsernameCommonUserUseCase) {
+    public CreateSubscriptionUseCaseImpl(SubscriptionRepositoryService subscriptionRepositoryService, GetPlanByNameUseCase getPlanByNameUseCase, GetCommonUserByUsernameUseCase getCommonUserByUsernameUseCase) {
         this.subscriptionRepositoryService = subscriptionRepositoryService;
         this.getPlanByNameUseCase = getPlanByNameUseCase;
-        this.getByUsernameCommonUserUseCase = getByUsernameCommonUserUseCase;
+        this.getCommonUserByUsernameUseCase = getCommonUserByUsernameUseCase;
     }
 
     @Override
     public Subscription execute(String planName, String userUsername, int monthsDuration) throws PlanNotFoundException, CommonUserNotFoundException {
         var plan = getPlanByNameUseCase.execute(planName);
-        var user = getByUsernameCommonUserUseCase.execute(userUsername);
+        var user = getCommonUserByUsernameUseCase.execute(userUsername);
 
         var expireDate = new Date(System.currentTimeMillis() + (monthsDuration * 30L * 24L * 60L * 60L * 1000L));
 

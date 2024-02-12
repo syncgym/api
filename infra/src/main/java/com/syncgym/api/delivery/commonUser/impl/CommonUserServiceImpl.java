@@ -26,8 +26,8 @@ public class CommonUserServiceImpl implements CommonUserRepositoryService {
     private CommonUserRepositoryMapper commonUserRepositoryMapper;
 
     @Override
-    public Optional<CommonUser> findById(Long id) {
-        return commonUserRepository.findById(id)
+    public Optional<CommonUser> findByUsername(String username) {
+        return commonUserRepository.findByUserUsername(username)
                 .map(commonUserRepositoryMapper::mapToDomain);
     }
 
