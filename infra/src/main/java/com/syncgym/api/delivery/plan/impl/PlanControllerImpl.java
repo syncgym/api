@@ -78,8 +78,6 @@ public class PlanControllerImpl implements PlanController {
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
                     @ApiResponse(responseCode = "403", description = "Forbidden",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
-                    @ApiResponse(responseCode = "404", description = "Not Found",
-                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             }

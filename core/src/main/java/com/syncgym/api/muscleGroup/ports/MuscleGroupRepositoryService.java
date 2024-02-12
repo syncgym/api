@@ -10,4 +10,6 @@ public interface MuscleGroupRepositoryService {
     Collection<MuscleGroup> getAllMuscleGroups();
 
     Optional<MuscleGroup> getMuscleGroupByName(String name);
+
+    MuscleGroup createMuscleGroup(MuscleGroup muscleGroup);
 }

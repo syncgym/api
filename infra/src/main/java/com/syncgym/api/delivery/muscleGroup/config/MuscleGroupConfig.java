@@ -2,6 +2,7 @@ package com.syncgym.api.delivery.muscleGroup.config;
 
 import com.syncgym.api.delivery.muscleGroup.impl.MuscleGroupServiceImpl;
 import com.syncgym.api.delivery.muscleGroup.mappers.MuscleGroupRepositoryMapper;
+import com.syncgym.api.muscleGroup.usecases.createMuscleGroupUseCase.CreateMuscleGroupUseCaseImpl;
 import com.syncgym.api.muscleGroup.usecases.getAllMuscleGroupsUseCase.GetAllMuscleGroupsUseCaseImpl;
 import com.syncgym.api.muscleGroup.usecases.getMuscleGroupByNameUseCase.GetMuscleGroupByNameUseCaseImpl;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +29,10 @@ public class MuscleGroupConfig {
     @Bean
     public GetMuscleGroupByNameUseCaseImpl getMuscleGroupByNameUseCase() {
         return new GetMuscleGroupByNameUseCaseImpl(muscleGroupService());
+    }
+
+    @Bean
+    public CreateMuscleGroupUseCaseImpl createMuscleGroupUseCase() {
+        return new CreateMuscleGroupUseCaseImpl(muscleGroupService());
     }
 }

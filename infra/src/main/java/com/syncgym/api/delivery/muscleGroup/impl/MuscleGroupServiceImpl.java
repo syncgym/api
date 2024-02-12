@@ -28,4 +28,11 @@ public class MuscleGroupServiceImpl implements MuscleGroupRepositoryService {
         return muscleGroupRepository.findByName(name)
                 .map(muscleGroupRepositoryMapper::mapToDomain);
     }
+
+    @Override
+    public MuscleGroup createMuscleGroup(MuscleGroup muscleGroup) {
+        return muscleGroupRepositoryMapper.mapToDomain(
+                muscleGroupRepository.save(muscleGroupRepositoryMapper.mapToEntity(muscleGroup))
+        );
+    }
 }
