@@ -18,6 +18,23 @@ services:
       - 3308
     networks:
       - syncgym-network
+  api:
+    image: gastawny/syncgym-api
+    restart: always
+    build: ../api
+    working_dir: /api
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3308/syncgym
+      SPRING.DATASOURCE.USERNAME: docker
+      SPRING.DATASOURCE.PASSWORD: a8s45d18
+    ports:
+      - 80:80
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    networks:
+      - syncgym-network
 networks:
   syncgym-network:
     driver: bridge
