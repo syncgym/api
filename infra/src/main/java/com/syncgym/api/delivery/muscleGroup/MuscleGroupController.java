@@ -12,4 +12,8 @@ public interface MuscleGroupController {
     ResponseEntity<SyncgymResponse<List<String>>> getAllMuscleGroups() throws SyncgymException;
 
     ResponseEntity<SyncgymResponse<String>> createMuscleGroup(CreateMuscleGroupReqRest req) throws SyncgymException;
+
+    ResponseEntity<SyncgymResponse<String>> updateMuscleGroup(CreateMuscleGroupReqRest req, String name) throws SyncgymException;
+
+    ResponseEntity<SyncgymResponse<Object>> deleteMuscleGroup(String name) throws SyncgymException;
 }

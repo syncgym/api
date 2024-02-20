@@ -12,4 +12,8 @@ public interface MuscleGroupRepositoryService {
     Optional<MuscleGroup> getMuscleGroupByName(String name);
 
     MuscleGroup createMuscleGroup(MuscleGroup muscleGroup);
+
+    Optional<MuscleGroup> updateMuscleGroup(String name, String newName);
+
+    void deleteMuscleGroup(String name);
 }

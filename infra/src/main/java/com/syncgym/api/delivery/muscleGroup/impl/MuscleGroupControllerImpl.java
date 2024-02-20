@@ -3,10 +3,14 @@ package com.syncgym.api.delivery.muscleGroup.impl;
 import com.syncgym.api.delivery.muscleGroup.MuscleGroupController;
 import com.syncgym.api.delivery.muscleGroup.responses.ListOfMuscleGroupResponse;
 import com.syncgym.api.delivery.muscleGroup.rest.CreateMuscleGroupReqRest;
+import com.syncgym.api.delivery.note.responses.DeleteNoteResponse;
 import com.syncgym.api.muscleGroup.MuscleGroup;
 import com.syncgym.api.muscleGroup.exceptions.MuscleGroupAlreadyExistsException;
+import com.syncgym.api.muscleGroup.exceptions.MuscleGroupNotFoundException;
 import com.syncgym.api.muscleGroup.usecases.createMuscleGroupUseCase.CreateMuscleGroupUseCase;
+import com.syncgym.api.muscleGroup.usecases.deleteMuscleGroupUseCase.DeleteMuscleGroupUseCase;
 import com.syncgym.api.muscleGroup.usecases.getAllMuscleGroupsUseCase.GetAllMuscleGroupsUseCase;
+import com.syncgym.api.muscleGroup.usecases.updateMuscleGroupUseCase.UpdateMuscleGroupUseCase;
 import com.syncgym.api.shared.constants.CommonConstants;
 import com.syncgym.api.shared.exceptions.BadRequestException;
 import com.syncgym.api.shared.exceptions.SyncgymException;
@@ -35,6 +39,12 @@ public class MuscleGroupControllerImpl implements MuscleGroupController {
 
     @Autowired
     private CreateMuscleGroupUseCase createMuscleGroupUseCase;
+
+    @Autowired
+    private UpdateMuscleGroupUseCase updateMuscleGroupUseCase;
+
+    @Autowired
+    private DeleteMuscleGroupUseCase deleteMuscleGroupUseCase;
 
     @Override
     @GetMapping
@@ -97,5 +107,72 @@ public class MuscleGroupControllerImpl implements MuscleGroupController {
         } catch (MuscleGroupAlreadyExistsException e) {
             throw new BadRequestException(e.getMessage());
         }
+    }
+
+    @Override
+    @PutMapping("/{name}")
+    @Operation(summary = "Update a muscle group", description = "Update a muscle group by name",
+            tags = {"Muscle Group"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = ListOfMuscleGroupResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
+    public ResponseEntity<SyncgymResponse<String>> updateMuscleGroup(
+            @RequestBody CreateMuscleGroupReqRest req, @PathVariable("name") String name
+    ) throws SyncgymException {
+        try {
+            var res = new SyncgymResponse<>(
+                    CommonConstants.CREATED,
+                    CommonConstants.CREATED_STATUS,
+                    CommonConstants.SUCCESS_MESSAGE,
+                    updateMuscleGroupUseCase.execute(req.name(), name).name()
+            );
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(res);
+        } catch (MuscleGroupNotFoundException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+    }
+
+    @Override
+    @DeleteMapping("/{name}")
+    @Operation(summary = "Delete a muscle group", description = "Delete a muscle group by name",
+            tags = {"Muscle Group"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK",
+                            content = @Content(schema = @Schema(implementation = DeleteNoteResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+            }
+    )
+    public ResponseEntity<SyncgymResponse<Object>> deleteMuscleGroup(@PathVariable("name") String name) throws SyncgymException {
+        try {
+            deleteMuscleGroupUseCase.execute(name);
+        } catch (MuscleGroupNotFoundException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+
+        var res = new SyncgymResponse<>(
+                CommonConstants.OK,
+                CommonConstants.OK_STATUS,
+                CommonConstants.SUCCESS_MESSAGE
+        );
+
+        return ResponseEntity.ok(res);
     }
 }

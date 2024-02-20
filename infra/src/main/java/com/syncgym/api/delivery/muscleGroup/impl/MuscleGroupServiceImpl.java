@@ -35,4 +35,15 @@ public class MuscleGroupServiceImpl implements MuscleGroupRepositoryService {
                 muscleGroupRepository.save(muscleGroupRepositoryMapper.mapToEntity(muscleGroup))
         );
     }
+
+    @Override
+    public Optional<MuscleGroup> updateMuscleGroup(String name, String newName) {
+        return muscleGroupRepository.updateByName(name, newName)
+                .map(muscleGroupRepositoryMapper::mapToDomain);
+    }
+
+    @Override
+    public void deleteMuscleGroup(String name) {
+        muscleGroupRepository.deleteByName(name);
+    }
 }
