@@ -2,7 +2,6 @@ package com.syncgym.api.delivery.note.impl;
 
 import com.syncgym.api.commonUser.exceptions.CommonUserNotFoundException;
 import com.syncgym.api.delivery.muscleGroup.responses.DeleteMuscleGroupResponse;
-import com.syncgym.api.delivery.muscleGroup.responses.MuscleGroupResponse;
 import com.syncgym.api.delivery.note.NoteController;
 import com.syncgym.api.delivery.note.mappers.NoteResponseRestMapper;
 import com.syncgym.api.delivery.note.responses.ListOfNotesResponse;
@@ -127,7 +126,7 @@ public class NoteControllerImpl implements NoteController {
             tags = {"Note"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
-                            content = @Content(schema = @Schema(implementation = MuscleGroupResponse.class))),
+                            content = @Content(schema = @Schema(implementation = NoteResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
                     @ApiResponse(responseCode = "401", description = "Unauthorized",

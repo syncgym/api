@@ -2,10 +2,12 @@ package com.syncgym.api.delivery.muscleGroup.impl;
 
 import com.syncgym.api.delivery.muscleGroup.MuscleGroupController;
 import com.syncgym.api.delivery.muscleGroup.responses.ListOfMuscleGroupResponse;
+import com.syncgym.api.delivery.muscleGroup.responses.MuscleGroupResponse;
 import com.syncgym.api.delivery.muscleGroup.rest.CreateMuscleGroupReqRest;
 import com.syncgym.api.delivery.note.responses.DeleteNoteResponse;
 import com.syncgym.api.muscleGroup.MuscleGroup;
 import com.syncgym.api.muscleGroup.exceptions.MuscleGroupAlreadyExistsException;
+import com.syncgym.api.muscleGroup.exceptions.MuscleGroupDependentItemsExistException;
 import com.syncgym.api.muscleGroup.exceptions.MuscleGroupNotFoundException;
 import com.syncgym.api.muscleGroup.usecases.createMuscleGroupUseCase.CreateMuscleGroupUseCase;
 import com.syncgym.api.muscleGroup.usecases.deleteMuscleGroupUseCase.DeleteMuscleGroupUseCase;
@@ -115,7 +117,7 @@ public class MuscleGroupControllerImpl implements MuscleGroupController {
             tags = {"Muscle Group"},
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK",
-                            content = @Content(schema = @Schema(implementation = ListOfMuscleGroupResponse.class))),
+                            content = @Content(schema = @Schema(implementation = MuscleGroupResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Bad Request",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
                     @ApiResponse(responseCode = "401", description = "Unauthorized",
@@ -131,13 +133,13 @@ public class MuscleGroupControllerImpl implements MuscleGroupController {
     ) throws SyncgymException {
         try {
             var res = new SyncgymResponse<>(
-                    CommonConstants.CREATED,
-                    CommonConstants.CREATED_STATUS,
+                    CommonConstants.OK,
+                    CommonConstants.OK_STATUS,
                     CommonConstants.SUCCESS_MESSAGE,
                     updateMuscleGroupUseCase.execute(req.name(), name).name()
             );
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(res);
+            return ResponseEntity.ok(res);
         } catch (MuscleGroupNotFoundException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -163,7 +165,7 @@ public class MuscleGroupControllerImpl implements MuscleGroupController {
     public ResponseEntity<SyncgymResponse<Object>> deleteMuscleGroup(@PathVariable("name") String name) throws SyncgymException {
         try {
             deleteMuscleGroupUseCase.execute(name);
-        } catch (MuscleGroupNotFoundException e) {
+        } catch (MuscleGroupNotFoundException | MuscleGroupDependentItemsExistException e) {
             throw new BadRequestException(e.getMessage());
         }
 

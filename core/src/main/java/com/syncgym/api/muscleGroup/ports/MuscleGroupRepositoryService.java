@@ -13,7 +13,7 @@ public interface MuscleGroupRepositoryService {
 
     MuscleGroup createMuscleGroup(MuscleGroup muscleGroup);
 
-    Optional<MuscleGroup> updateMuscleGroup(String name, String newName);
+    MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup);
 
-    void deleteMuscleGroup(String name);
+    void deleteMuscleGroup(MuscleGroup muscleGroup);
 }

@@ -13,7 +13,7 @@ public class GetMuscleGroupByNameUseCaseImpl implements GetMuscleGroupByNameUseC
     }
 
     @Override
-    public MuscleGroup getMuscleGroupByName(String name) throws MuscleGroupNotFoundException {
+    public MuscleGroup execute(String name) throws MuscleGroupNotFoundException {
         return muscleGroupRepositoryService.getMuscleGroupByName(name)
                 .orElseThrow(MuscleGroupNotFoundException::new);
     }

@@ -40,11 +40,11 @@ public class MuscleGroupConfig {
 
     @Bean
     public UpdateMuscleGroupUseCaseImpl updateMuscleGroupUseCase() {
-        return new UpdateMuscleGroupUseCaseImpl(muscleGroupService());
+        return new UpdateMuscleGroupUseCaseImpl(muscleGroupService(), getMuscleGroupByNameUseCase());
     }
 
     @Bean
     public DeleteMuscleGroupUseCaseImpl deleteMuscleGroupUseCase() {
-        return new DeleteMuscleGroupUseCaseImpl(muscleGroupService());
+        return new DeleteMuscleGroupUseCaseImpl(muscleGroupService(), getMuscleGroupByNameUseCase());
     }
 }

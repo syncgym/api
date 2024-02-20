@@ -37,13 +37,14 @@ public class MuscleGroupServiceImpl implements MuscleGroupRepositoryService {
     }
 
     @Override
-    public Optional<MuscleGroup> updateMuscleGroup(String name, String newName) {
-        return muscleGroupRepository.updateByName(name, newName)
-                .map(muscleGroupRepositoryMapper::mapToDomain);
+    public MuscleGroup updateMuscleGroup(MuscleGroup muscleGroup) {
+        return muscleGroupRepositoryMapper.mapToDomain(
+                muscleGroupRepository.save(muscleGroupRepositoryMapper.mapToEntity(muscleGroup))
+        );
     }
 
     @Override
-    public void deleteMuscleGroup(String name) {
-        muscleGroupRepository.deleteByName(name);
+    public void deleteMuscleGroup(MuscleGroup muscleGroup) {
+        muscleGroupRepository.delete(muscleGroupRepositoryMapper.mapToEntity(muscleGroup));
     }
 }

@@ -5,5 +5,5 @@ import com.syncgym.api.muscleGroup.exceptions.MuscleGroupNotFoundException;
 
 public interface GetMuscleGroupByNameUseCase {
 
-    MuscleGroup getMuscleGroupByName(String name) throws MuscleGroupNotFoundException;
+    MuscleGroup execute(String name) throws MuscleGroupNotFoundException;
 }
